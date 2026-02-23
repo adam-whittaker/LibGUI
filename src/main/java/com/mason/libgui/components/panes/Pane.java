@@ -9,6 +9,7 @@ import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.InputDelegator;
+import com.mason.libgui.utils.structures.Size;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -19,6 +20,7 @@ public class Pane extends UIComponent implements UIComponentContainer, GUIInputR
     private final UIComponentManager componentManager;
     private final PaneGUIInputTranslator inputTranslator;
     private final GraphicsTransformBehaviour graphicsTransform;
+    private final Size size;
 
 
     protected Pane(HitboxRect boundary){
@@ -34,6 +36,7 @@ public class Pane extends UIComponent implements UIComponentContainer, GUIInputR
         PaneGraphicsTransformBuilder transformBuilder =
                 new PaneGraphicsTransformBuilder(this::renderAfterTranslation, boundary);
         graphicsTransform = transformBuilder.build();
+        this.size = boundary.getSize();
     }
 
     public static Pane buildDefault(HitboxRect boundary){
@@ -71,6 +74,11 @@ public class Pane extends UIComponent implements UIComponentContainer, GUIInputR
     @Override
     public void removeComponent(UIComponent comp){
         componentManager.removeComponent(comp);
+    }
+
+
+    public Size getSize(){
+        return size;
     }
 
 

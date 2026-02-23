@@ -11,12 +11,18 @@ public class MouseInputEvent{
     private final MouseEvent event;
     private final MouseInputType type;
     private Coord coord;
+    private final RejectedFlag rejectedFlag;
 
 
     public MouseInputEvent(MouseEvent event){
+        this(event, new RejectedFlag());
+    }
+
+    private MouseInputEvent(MouseEvent event, RejectedFlag rejectedFlag){
         this.event = event;
         coord = new Coord(event.getX(), event.getY());
         type = MouseInputType.fromRawMouseEvent(event);
+        this.rejectedFlag = rejectedFlag;
     }
 
 
@@ -28,10 +34,22 @@ public class MouseInputEvent{
         coord = c;
     }
 
-    public MouseInputEvent copy(){
-        MouseInputEvent copy = new MouseInputEvent(event);
-        copy.setCoord(coord);
-        return copy;
+    public MouseInputEvent changedCoordMask(Coord newCoord){
+        MouseInputEvent mask = new MouseInputEvent(event, rejectedFlag);
+        mask.setCoord(newCoord);
+        return mask;
+    }
+
+    public boolean isRejected(){
+        return rejectedFlag.isRejected();
+    }
+
+    public void reject(){
+        rejectedFlag.reject();
+    }
+
+    public void unreject(){
+        rejectedFlag.unreject();
     }
 
 
@@ -53,6 +71,25 @@ public class MouseInputEvent{
         if(!type.equals(MouseInputType.WHEEL)){
             throw new IllegalStateException("Attempting to get wheel state of non-wheel event");
         }
+    }
+
+
+    private static class RejectedFlag{
+
+        boolean rejected = false;
+
+        boolean isRejected(){
+            return rejected;
+        }
+
+        void reject(){
+            rejected = true;
+        }
+
+        void unreject(){
+            rejected = false;
+        }
+
     }
 
 }

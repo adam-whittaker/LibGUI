@@ -18,8 +18,8 @@ public class Zoom{
         this.zoom = initialZoom;
     }
 
-    static Zoom buildZoom(double minZoom, double maxZoom, int numZoomLevels, double initialZoom){
-        if(numZoomLevels <= 1) {
+    public static Zoom buildZoom(double minZoom, double maxZoom, int numZoomLevels, double initialZoom){
+        if(numZoomLevels <= 1){
             throw new IllegalArgumentException("numZoomLevels must be >= 2");
         }
         double zoomFactor = calculateZoomFactor(maxZoom/minZoom, numZoomLevels);
@@ -30,15 +30,15 @@ public class Zoom{
         return Math.pow(zoomRange, 1D/(numZoomLevels-1));
     }
 
-    static Zoom buildZoomWithDefaultNumZoomLevels(double minZoom, double maxZoom){
+    public static Zoom buildZoomWithDefaultNumZoomLevels(double minZoom, double maxZoom){
         return buildZoom(minZoom, maxZoom, 9, 1);
     }
 
-    static Zoom buildDefaultMiddleZoom(){
+    public static Zoom buildDefaultMiddleZoom(){
         return buildZoomWithDefaultNumZoomLevels(1D/16, 16);
     }
 
-    static Zoom buildDefaultFullyZoomedOutZoom(){
+    public static Zoom buildDefaultFullyZoomedOutZoom(){
         return buildZoomWithDefaultNumZoomLevels(1, 16*16);
     }
 

@@ -56,7 +56,7 @@ public class HitboxRect implements Hitbox, RectQuery{
         int boundaryWidth = boundary.getSize().width();
         if(x < boundaryX){
             x = boundaryX;
-        }else if(x > boundaryX + boundaryWidth){
+        }else if(x > boundaryX + boundaryWidth - size.width()){
             x = boundaryX + boundaryWidth - size.width();
         }
         return x;
@@ -68,7 +68,7 @@ public class HitboxRect implements Hitbox, RectQuery{
         int boundaryHeight = boundary.getSize().height();
         if(y < boundaryY){
             y = boundaryY;
-        }else if(y > boundaryY + boundaryHeight){
+        }else if(y > boundaryY + boundaryHeight - size.height()){
             y = boundaryY + boundaryHeight - size.height();
         }
         return y;

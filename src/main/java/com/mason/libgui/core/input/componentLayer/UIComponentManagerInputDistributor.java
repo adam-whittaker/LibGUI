@@ -49,10 +49,20 @@ public class UIComponentManagerInputDistributor implements GUIMouseInputCoagulat
     public void onMouseInput(MouseInputEvent event){
         for(BoundedMouseInputListener listener : mouseRegister){
             if(listener.withinBounds(event.getCoord())){
-                dispatchMouseInputEventToListener(event, listener);
-                break;
+                if(tryDispatchMouseInputEventToListener(event, listener)){
+                    break;
+                }
             }
         }
+    }
+
+    protected final boolean tryDispatchMouseInputEventToListener(MouseInputEvent event, MouseInputListener listener){
+        dispatchMouseInputEventToListener(event, listener);
+        if(event.isRejected()){
+            event.unreject();
+            return false;
+        }
+        return true;
     }
 
     protected final void dispatchMouseInputEventToListener(MouseInputEvent event, MouseInputListener listener){

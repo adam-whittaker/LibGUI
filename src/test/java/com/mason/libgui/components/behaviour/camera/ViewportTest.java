@@ -56,7 +56,7 @@ class ViewportTest{
         Consumer<Graphics2D> renderable = g -> {};
         Viewport viewport = Viewport.buildViewport(renderable, bounding, initialView, zoom);
 
-        assertEquals(new Coord(10, 20), viewport.getTopLeft());
+        assertEquals(new Coord(10, 20), viewport.getPreciseTopLeft());
         assertEquals(2.0, viewport.getZoom(), EPS);
     }
 
@@ -68,7 +68,7 @@ class ViewportTest{
         Viewport viewport = Viewport.buildViewportWithDefaultZoomAndInitialView(renderable, bounding);
 
         // View top-left should be at the boundary
-        assertEquals(new Coord(0, 0), viewport.getTopLeft());
+        assertEquals(new Coord(0, 0), viewport.getPreciseTopLeft());
 
         // Zoom should be the same as default fully-zoomed-out zoom initial value (which is 1.0)
         Zoom defaultZoom = Zoom.buildDefaultFullyZoomedOutZoom();
@@ -88,12 +88,12 @@ class ViewportTest{
         Consumer<Graphics2D> renderable = g -> {};
         Viewport viewport = Viewport.buildViewport(renderable, bounding, initialView, zoom);
 
-        Coord apparent = new Coord(12, 22); // 2 units right/down from top-left
+        ApparentCoord apparent = new ApparentCoord(12, 22); // 2 units right/down from top-left
 
         Coord screen = viewport.apparentToScreen(apparent);
         assertEquals(new Coord(4, 4), screen); // (12-10)*2, (22-20)*2
 
-        Coord back = viewport.screenToApparent(screen);
+        ApparentCoord back = viewport.screenToApparent(screen);
         assertEquals(apparent, back);
     }
 
@@ -155,12 +155,12 @@ class ViewportTest{
         Viewport viewport = Viewport.buildViewport(renderable, bounding, initialView, zoom);
 
         // Before clamp: top-left is outside
-        assertEquals(new Coord(200, 300), viewport.getTopLeft());
+        assertEquals(new Coord(200, 300), viewport.getPreciseTopLeft());
 
         viewport.clampWithinBoundary();
 
         // HitboxRect.clampWithinBoundary clamps to boundaryX + width, boundaryY + height
-        assertEquals(new Coord(90, 90), viewport.getTopLeft());
+        assertEquals(new Coord(90, 90), viewport.getPreciseTopLeft());
     }
 
     // ---------- Top-left getters/setters ----------
@@ -174,10 +174,10 @@ class ViewportTest{
         Consumer<Graphics2D> renderable = g -> {};
         Viewport viewport = Viewport.buildViewport(renderable, bounding, initialView, zoom);
 
-        Coord newCoord = new Coord(30, 40);
-        viewport.setTopLeft(newCoord);
+        ApparentCoord newCoord = new ApparentCoord(30, 40);
+        viewport.setPreciseTopLeft(newCoord);
 
-        assertEquals(newCoord, viewport.getTopLeft());
+        assertEquals(newCoord, viewport.getPreciseTopLeft());
     }
 
     // ---------- Render / transform behaviour ----------

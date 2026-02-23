@@ -1,10 +1,10 @@
-12-08 13:19:06:338: Free memory: 239MB
-12-08 13:19:06:339: Program Terminated
-12-08 13:19:06:407: Pacemaker finished
-12-08 13:19:06:514: Program Terminated
-12-08 13:19:06:514: Pacemaker finished
-12-08 13:19:06:576: Pacemaker finished
-12-08 13:19:06:576: Program Terminated
-12-08 13:19:06:683: Pacemaker finished
-12-08 13:19:06:683: Program Terminated
-12-08 13:19:06:810: Program Terminated
+02-20 22:07:00:024: Free memory: 236MB
+02-20 22:07:00:024: Program Terminated
+02-20 22:07:00:098: Pacemaker finished
+02-20 22:07:00:201: Pacemaker finished
+02-20 22:07:00:201: Program Terminated
+02-20 22:07:00:262: Pacemaker finished
+02-20 22:07:00:262: Program Terminated
+02-20 22:07:00:370: Program Terminated
+02-20 22:07:00:370: Pacemaker finished
+02-20 22:07:00:517: Program Terminated

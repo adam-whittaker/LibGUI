@@ -2,12 +2,12 @@ package com.mason.libgui.core.input.guiLayer;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class GUIMouseInputTransformer extends SimpleGUIInputGate{
 
 
-    private Function<MouseInputEvent, MouseInputEvent> transform;
+    private Consumer<MouseInputEvent> transform;
 
 
     public GUIMouseInputTransformer(){
@@ -15,44 +15,44 @@ public class GUIMouseInputTransformer extends SimpleGUIInputGate{
     }
 
 
-    public final void setTransform(Function<MouseInputEvent, MouseInputEvent> transform){
+    public final void setTransform(Consumer<MouseInputEvent> transform){
         this.transform = transform;
     }
 
 
     @Override
     public void onMouseMoved(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMouseMoved(e);
     }
 
     @Override
     public void onMouseDragged(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMouseDragged(e);
     }
 
     @Override
     public void onMousePressed(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMousePressed(e);
     }
 
     @Override
     public void onMouseReleased(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMouseReleased(e);
     }
 
     @Override
     public void onMouseClicked(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMouseClicked(e);
     }
 
     @Override
     public void onMouseWheel(MouseInputEvent e){
-        e = transform.apply(e);
+        transform.accept(e);
         super.onMouseWheel(e);
     }
 

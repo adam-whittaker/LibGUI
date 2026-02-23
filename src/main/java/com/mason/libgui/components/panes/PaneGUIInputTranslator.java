@@ -18,9 +18,8 @@ public class PaneGUIInputTranslator extends GUIMouseInputTransformer implements 
     }
 
 
-    private MouseInputEvent relativizeMouseInputEvent(MouseInputEvent event){
+    private void relativizeMouseInputEvent(MouseInputEvent event){
         event.setCoordRelativeTo(boundary.getCoord());
-        return event;
     }
 
 

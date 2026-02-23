@@ -33,7 +33,14 @@ public class GUI implements UIComponentContainer, GUIInputRegister<BoundedMouseI
 
 
     public static GUI buildSimpleGUI(Size size, String title){
-        Window window = new Window(size, title);
+        return buildSimpleGUIFromWindow(new Window(size, title));
+    }
+
+    public static GUI buildSimpleGUIWithAppIcon(Size size, String title, String appIconFilepath){
+        return buildSimpleGUIFromWindow(new Window(size, title, appIconFilepath));
+    }
+
+    private static GUI buildSimpleGUIFromWindow(Window window){
         UIComponentManager componentManager = UIComponentManager.buildSimpleUIComponentManager();
         RawToGUIInputAdapter rawSocket = new RawToGUIInputAdapter();
         GUIInputGate guiInputGate = new ActivityLoggingGUIInputGate();

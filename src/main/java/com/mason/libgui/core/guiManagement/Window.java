@@ -22,12 +22,22 @@ public class Window{
         renderer = new CanvasRenderer(frameSize);
         renderer.setUpWithFrame(frame);
         frame.pack();
+        frame.setLocationRelativeTo(null);
+    }
+
+    Window(Size frameSize, String title, String appIconFilepath){
+        frame = new JFrame(title);
+        frame.setIconImage(new ImageIcon(appIconFilepath).getImage());
+        setupFrame();
+        renderer = new CanvasRenderer(frameSize);
+        renderer.setUpWithFrame(frame);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     private void setupFrame(){
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

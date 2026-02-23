@@ -1,11 +1,9 @@
 package com.mason.libgui.components.behaviour.camera;
 
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
-import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.RectQuery;
-import com.mason.libgui.utils.structures.Size;
 import com.mason.libgui.utils.structures.*;
 
 import java.awt.*;
@@ -15,25 +13,23 @@ import java.util.function.Consumer;
 public class Viewport{
 
 
-    private final RectQuery boundingRect;
-    private final HitboxRect view;
+    private final RectQuery clampingRect;
+    private final ViewDoubleRect view;
     private final Zoom zoom;
     private final GraphicsTransformBehaviour graphicsTransformer;
 
 
     private Viewport(Consumer<Graphics2D> renderable, RectQuery boundingRect, RectQuery initialView, Zoom zoom){
-        this.boundingRect = boundingRect;
-        this.view = new HitboxRect(initialView.getCoord(), initialView.getSize());
+        this.clampingRect = boundingRect;
+        this.view = new ViewDoubleRect(initialView);
         this.zoom = zoom;
         graphicsTransformer = GraphicsTransformBehaviour.buildTransformOnlyBehaviour(renderable, this::constructTransform);
     }
 
     private AffineTransform constructTransform(){
-        Coord viewCoord = view.getCoord();
         double zoom = getZoom();
-
         AffineTransform transform = AffineTransform.getScaleInstance(zoom, zoom);
-        transform.translate(-viewCoord.x(), -viewCoord.y());
+        transform.translate(-view.xInt(), -view.yInt());
         return transform;
     }
 
@@ -47,20 +43,20 @@ public class Viewport{
     }
 
 
-    Coord apparentToScreen(Coord apparent){
+    Coord apparentToScreen(ApparentCoord apparent){
         double zoom = getZoom();
-        Coord topLeft = view.getCoord();
+        ApparentCoord topLeft = view.getPreciseCoord();
         int x = (int)((apparent.x() - topLeft.x()) * zoom);
         int y = (int)((apparent.y() - topLeft.y()) * zoom);
         return new Coord(x, y);
     }
 
-    Coord screenToApparent(Coord screen){
+    ApparentCoord screenToApparent(Coord screen){
         double zoom = getZoom();
-        Coord topLeft = view.getCoord();
-        int x = (int)(screen.x()/zoom + topLeft.x());
-        int y = (int)(screen.y()/zoom + topLeft.y());
-        return new Coord(x, y);
+        ApparentCoord topLeft = view.getPreciseCoord();
+        double x = screen.x()/zoom + topLeft.x();
+        double y = screen.y()/zoom + topLeft.y();
+        return new ApparentCoord(x, y);
     }
 
     double getZoom(){
@@ -73,21 +69,20 @@ public class Viewport{
     }
 
     void resizeAfterZoom(double zoomFactorChange){
-        Size size = view.getSize();
-        view.setSize(new Size((int)(size.width()/zoomFactorChange), (int)(size.height()/zoomFactorChange)));
+        view.resizeAfterZoom(zoomFactorChange);
     }
 
     void clampWithinBoundary(){
-        view.clampWithinBoundary(boundingRect);
+        view.clampWithinBoundary(clampingRect);
     }
 
 
-    void setTopLeft(Coord c){
-        view.setCoord(c);
+    void setPreciseTopLeft(ApparentCoord c){
+        view.setPreciseCoord(c);
     }
 
-    Coord getTopLeft(){
-        return view.getCoord();
+    ApparentCoord getPreciseTopLeft(){
+        return view.getPreciseCoord();
     }
 
 

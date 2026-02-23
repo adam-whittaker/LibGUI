@@ -41,10 +41,8 @@ public class ViewportInputDistributor extends UIComponentManagerInputDistributor
     }
 
     private MouseInputEvent getApparentMouseInputEvent(MouseInputEvent event){
-        Coord apparentCoord = behaviour.screenToApparent(event.getCoord());
-        MouseInputEvent copy = event.copy();
-        copy.setCoord(apparentCoord);
-        return copy;
+        ApparentCoord apparentCoord = behaviour.screenToApparent(event.getCoord());
+        return event.changedCoordMask(apparentCoord.asCoord());
     }
 
     private void passApparentInputToMouseInputListeners(MouseInputEvent event){
@@ -52,8 +50,11 @@ public class ViewportInputDistributor extends UIComponentManagerInputDistributor
         for(BoundedMouseInputListener listener : mouseListeners()){
             if(listener.withinBounds(event.getCoord())){
                 dispatchMouseInputEventToListener(event, listener);
-                inputConsumed = true;
-                return;
+                if(!event.isRejected()){
+                    inputConsumed = true;
+                    return;
+                }
+                event.unreject();
             }
         }
     }

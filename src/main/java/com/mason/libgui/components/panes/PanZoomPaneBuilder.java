@@ -20,14 +20,14 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
     }
 
 
-    public T build(HitboxRect boundary, RectQuery initialView, Zoom zoom){
-        BehaviourFactory behaviourFactory = buildStandardBehaviourFactory(boundary, initialView, zoom);
+    public T build(HitboxRect boundary, RectQuery initialView, RectQuery clampingRect, Zoom zoom){
+        BehaviourFactory behaviourFactory = buildStandardBehaviourFactory(clampingRect, initialView, zoom);
         return buildUsingBehaviourFactory(boundary, behaviourFactory);
     }
 
-    private BehaviourFactory buildStandardBehaviourFactory(HitboxRect boundary, RectQuery initialView, Zoom zoom){
+    private BehaviourFactory buildStandardBehaviourFactory(RectQuery clampingRect, RectQuery initialView, Zoom zoom){
         return (renderReference, viewportCapturer) -> {
-            return PanZoomBehaviour.buildBehaviour(renderReference, boundary, initialView, zoom, viewportCapturer);
+            return PanZoomBehaviour.buildBehaviour(renderReference, clampingRect, initialView, zoom, viewportCapturer);
         };
     }
 
@@ -65,9 +65,9 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
         return buildUsingBehaviourFactory(boundary, behaviourFactory);
     }
 
-    private BehaviourFactory buildFullyZoomedOutBehaviourFactory(HitboxRect boundary){
+    private BehaviourFactory buildFullyZoomedOutBehaviourFactory(RectQuery clampingRect){
         return (renderReference, viewportCapturer) -> {
-            return PanZoomBehaviour.buildFullyZoomedOutDefaultBehaviour(renderReference, boundary, viewportCapturer);
+            return PanZoomBehaviour.buildFullyZoomedOutDefaultBehaviour(renderReference, clampingRect, viewportCapturer);
         };
     }
 

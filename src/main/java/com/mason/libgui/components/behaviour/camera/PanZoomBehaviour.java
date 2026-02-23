@@ -14,7 +14,7 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
 
 
     private final Viewport viewport;
-    private Coord initialDragApparentCoord;
+    private ApparentCoord initialDragApparentCoord;
 
 
     private PanZoomBehaviour(Viewport viewport, ViewportMouseInputCapturer capturer){
@@ -23,13 +23,13 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
     }
 
 
-    public static PanZoomBehaviour buildBehaviour(Consumer<Graphics2D> renderable, RectQuery boundingRect, RectQuery initialView, Zoom zoom, ViewportMouseInputCapturer capturer){
-        Viewport viewport = Viewport.buildViewport(renderable, boundingRect, initialView, zoom);
+    public static PanZoomBehaviour buildBehaviour(Consumer<Graphics2D> renderable, RectQuery clampingRect, RectQuery initialView, Zoom zoom, ViewportMouseInputCapturer capturer){
+        Viewport viewport = Viewport.buildViewport(renderable, clampingRect, initialView, zoom);
         return new PanZoomBehaviour(viewport, capturer);
     }
 
-    public static PanZoomBehaviour buildFullyZoomedOutDefaultBehaviour(Consumer<Graphics2D> renderable, RectQuery boundingRect, ViewportMouseInputCapturer capturer){
-        Viewport viewport = Viewport.buildViewportWithDefaultZoomAndInitialView(renderable, boundingRect);
+    public static PanZoomBehaviour buildFullyZoomedOutDefaultBehaviour(Consumer<Graphics2D> renderable, RectQuery clampingRect, ViewportMouseInputCapturer capturer){
+        Viewport viewport = Viewport.buildViewportWithDefaultZoomAndInitialView(renderable, clampingRect);
         return new PanZoomBehaviour(viewport, capturer);
     }
 
@@ -39,7 +39,7 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
         return true;
     }
 
-    protected Coord screenToApparent(Coord screen){
+    protected ApparentCoord screenToApparent(Coord screen){
         return viewport.screenToApparent(screen);
     }
 
@@ -51,24 +51,24 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
     //Zoom
     @Override
     public void onMouseWheel(MouseInputEvent event){
-        Coord apparentAtMouse = viewport.screenToApparent(event.getCoord());
+        ApparentCoord apparentAtMouse = viewport.screenToApparent(event.getCoord());
         double oldZoom = viewport.getZoom();
         viewport.mouseWheel(event);
         double newZoom = viewport.getZoom();
         recalculateViewAfterZoom(newZoom/oldZoom, apparentAtMouse, event.getCoord());
     }
 
-    private void recalculateViewAfterZoom(double zoomFactorChange, Coord apparentAtMouse, Coord screenCoordOfMouse){
+    private void recalculateViewAfterZoom(double zoomFactorChange, ApparentCoord apparentAtMouse, Coord screenCoordOfMouse){
         viewport.resizeAfterZoom(zoomFactorChange);
         moveApparentCoordToScreenCoord(apparentAtMouse, screenCoordOfMouse);
         viewport.clampWithinBoundary();
     }
 
-    private void moveApparentCoordToScreenCoord(Coord apparent, Coord screen){
+    private void moveApparentCoordToScreenCoord(ApparentCoord apparent, Coord screen){
         double zoom = viewport.getZoom();
-        int newTopLeftX = (int)(apparent.x() - screen.x()/zoom);
-        int newTopLeftY = (int)(apparent.y() - screen.y()/zoom);
-        viewport.setTopLeft(new Coord(newTopLeftX, newTopLeftY));
+        double newTopLeftX = apparent.x() - screen.x()/zoom;
+        double newTopLeftY = apparent.y() - screen.y()/zoom;
+        viewport.setPreciseTopLeft(new ApparentCoord(newTopLeftX, newTopLeftY));
     }
 
 
@@ -81,6 +81,7 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
     @Override
     protected void onDragIncrement(MouseInputEvent event){
         moveApparentCoordToScreenCoord(initialDragApparentCoord, event.getCoord());
+        viewport.clampWithinBoundary();
     }
 
     @Override

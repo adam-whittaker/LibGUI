@@ -8,11 +8,9 @@ import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.mason.libgui.utils.structures.*;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -21,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class PanZoomPaneTest{
 
@@ -142,7 +142,7 @@ class PanZoomPaneTest{
         Zoom zoom = newZoom(1.0, 16.0, 2.0, 2.5); // initial zoom 2.5
 
         PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.build(boundary, initialView, zoom);
+        PanZoomPane pane = builder.build(boundary, initialView, boundary, zoom);
 
         PanZoomBehaviour behaviour = getPanZoomBehaviour(pane);
         Viewport viewport = getViewport(behaviour);
