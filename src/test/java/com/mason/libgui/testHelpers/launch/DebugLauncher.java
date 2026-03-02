@@ -1,7 +1,6 @@
 package com.mason.libgui.testHelpers.launch;
 
-import com.mason.libgui.components.panes.PanZoomPaneBuilder;
-import com.mason.libgui.components.panes.Pane;
+import com.mason.libgui.components.panes.*;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.guiManagement.GUI;
 import com.mason.libgui.testHelpers.stubs.*;
@@ -14,9 +13,8 @@ public class DebugLauncher{
     public static void main(String[] args){
         GUI gui = GUI.buildSimpleGUI(new Size(800, 600), "Example pane");
 
-        PanZoomPaneBuilder<DefaultPane> paneBuilder = new PanZoomPaneBuilder<>(DefaultPane::new);
         HitboxRect paneBoundary = new HitboxRect(new Coord(100, 100), new Size(400, 300));
-        Pane pane = paneBuilder.buildFullyZoomedOutPane(paneBoundary);
+        PanZoomPane pane = PanZoomPane.buildFullyZoomedOutPane(paneBoundary);
         gui.addComponent(pane);
         pane.setInputSource(gui);
 

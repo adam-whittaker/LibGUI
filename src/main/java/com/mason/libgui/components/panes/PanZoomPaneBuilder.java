@@ -6,21 +6,17 @@ import com.mason.libgui.core.componentManagement.SimpleUIComponentContainer;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.utils.structures.RectQuery;
 
-import java.awt.*;
-import java.util.function.Consumer;
-
-public class PanZoomPaneBuilder<T extends PanZoomPane>{
+public class PanZoomPaneBuilder{
 
 
-    private final PaneConstructor<T> constructor;
+    private interface BehaviourFactory{
 
+        PanZoomBehaviour constructBehaviour(PanZoomPaneSkeleton skeleton);
 
-    public PanZoomPaneBuilder(PaneConstructor<T> constructor){
-        this.constructor = constructor;
     }
 
 
-    public T build(HitboxRect boundary, RectQuery initialView, RectQuery clampingRect, Zoom zoom){
+    /*public PanZoomPaneSkeleton buildSkeleton(HitboxRect boundary, RectQuery initialView, RectQuery clampingRect, Zoom zoom){
         BehaviourFactory behaviourFactory = buildStandardBehaviourFactory(clampingRect, initialView, zoom);
         return buildUsingBehaviourFactory(boundary, behaviourFactory);
     }
@@ -31,16 +27,16 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
         };
     }
 
-    private T buildUsingBehaviourFactory(HitboxRect boundary, BehaviourFactory behaviourFactory){
+    private PanZoomPaneSkeleton buildUsingBehaviourFactory(HitboxRect boundary, BehaviourFactory behaviourFactory){
         RenderReference renderReference = new RenderReference();
         ViewportMouseInputCapturer viewportCapturer = new ViewportMouseInputCapturer();
         PanZoomBehaviour behaviour = behaviourFactory.build(renderReference, viewportCapturer);
-        T pane = buildUnreferencedPaneFromBehaviour(boundary, behaviour, viewportCapturer);
+        PanZoomPaneSkeleton skeleton = buildUnreferencedPaneFromBehaviour(boundary, behaviour, viewportCapturer);
         renderReference.setPane(pane);
         return pane;
     }
 
-    private T buildUnreferencedPaneFromBehaviour(HitboxRect boundary, PanZoomBehaviour behaviour, ViewportMouseInputCapturer viewportCapturer){
+    private PanZoomPaneSkeleton buildUnreferencedPaneFromBehaviour(HitboxRect boundary, PanZoomBehaviour behaviour, ViewportMouseInputCapturer viewportCapturer){
         UIComponentManager componentManager = buildViewportComponentManager(behaviour, viewportCapturer);
         PanZoomPaneSkeleton skeleton = buildSkeleton(boundary, behaviour, componentManager);
         return constructor.constructUnwiredPane(skeleton);
@@ -60,7 +56,7 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
     }
 
 
-    public T buildFullyZoomedOutPane(HitboxRect boundary){
+    public PanZoomPaneSkeleton buildFullyZoomedOutPane(HitboxRect boundary){
         BehaviourFactory behaviourFactory = buildFullyZoomedOutBehaviourFactory(boundary);
         return buildUsingBehaviourFactory(boundary, behaviourFactory);
     }
@@ -72,21 +68,6 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
     }
 
 
-    private static final class RenderReference implements Consumer<Graphics2D>{
-
-        PanZoomPane pane;
-
-        void setPane(PanZoomPane pane){
-            this.pane = pane;
-        }
-
-        @Override
-        public void accept(Graphics2D g){
-            pane.renderRawPane(g);
-        }
-
-    }
-
     public interface PaneConstructor<T>{
 
         T constructUnwiredPane(PanZoomPaneSkeleton skeleton);
@@ -97,6 +78,52 @@ public class PanZoomPaneBuilder<T extends PanZoomPane>{
 
         PanZoomBehaviour build(RenderReference renderReference, ViewportMouseInputCapturer viewportCapturer);
 
+    }*/
+
+
+    public static PanZoomPaneSkeleton buildSkeleton(HitboxRect boundary, RectQuery initialView, RectQuery clampingRect, Zoom zoom){
+        BehaviourFactory behaviourFactory = buildBehaviourFactory(initialView, clampingRect, zoom);
+        return buildSkeletonUsingBehaviourFactory(boundary, behaviourFactory);
+    }
+
+    private static BehaviourFactory buildBehaviourFactory(RectQuery initialView, RectQuery clampingRect, Zoom zoom){
+        return (skeleton) -> {
+            return PanZoomBehaviour.buildBehaviour(skeleton.getRenderable(),
+                    clampingRect,
+                    initialView,
+                    zoom,
+                    skeleton.getViewportMouseInputCapturer());
+        };
+    }
+
+    private static PanZoomPaneSkeleton buildSkeletonUsingBehaviourFactory(HitboxRect boundary, BehaviourFactory factory){
+        PanZoomPaneSkeleton skeleton = new PanZoomPaneSkeleton();
+        skeleton.setBoundary(boundary);
+        skeleton.setViewportMouseInputCapturer(new ViewportMouseInputCapturer());
+        PanZoomBehaviour behaviour = factory.constructBehaviour(skeleton);
+        UIComponentManager componentManager = buildViewportComponentManager(behaviour, skeleton.getViewportMouseInputCapturer());
+        skeleton.setComponentManager(componentManager);
+        skeleton.setBehaviour(behaviour);
+        return skeleton;
+    }
+
+    private static UIComponentManager buildViewportComponentManager(PanZoomBehaviour behaviour, ViewportMouseInputCapturer viewportCapturer){
+        ViewportInputDistributor inputDistributor = new ViewportInputDistributor(behaviour, viewportCapturer);
+        return UIComponentManager.buildUIComponentManager(new SimpleUIComponentContainer(), inputDistributor);
+    }
+
+
+    public static PanZoomPaneSkeleton buildSkeletonWithFullyZoomedOutBehaviour(HitboxRect boundary){
+        BehaviourFactory behaviourFactory = buildFullyZoomedOutBehaviourFactory(boundary);
+        return buildSkeletonUsingBehaviourFactory(boundary, behaviourFactory);
+    }
+
+    private static BehaviourFactory buildFullyZoomedOutBehaviourFactory(RectQuery clampingRect){
+        return (skeleton) -> {
+            return PanZoomBehaviour.buildFullyZoomedOutBehaviour(skeleton.getRenderable(),
+                    clampingRect,
+                    skeleton.getViewportMouseInputCapturer());
+        };
     }
 
 }

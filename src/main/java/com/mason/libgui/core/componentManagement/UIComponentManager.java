@@ -41,10 +41,22 @@ public class UIComponentManager implements GUIInputRegister<BoundedMouseInputLis
     @Override
     public void addComponent(UIComponent comp){
         components.addComponent(comp);
+        if(comp instanceof BoundedMouseInputListener mouseInputListener){
+            mouseInputListener.setInputSource(this);
+        }
+        if(comp instanceof KeyListener keyListener){
+            addKeyListener(keyListener);
+        }
     }
     
     public void removeComponent(UIComponent comp){
         components.removeComponent(comp);
+        if(comp instanceof BoundedMouseInputListener mouseInputListener){
+            mouseInputListener.unsetInputSource(this);
+        }
+        if(comp instanceof KeyListener keyListener){
+            removeKeyListener(keyListener);
+        }
     }
     
 

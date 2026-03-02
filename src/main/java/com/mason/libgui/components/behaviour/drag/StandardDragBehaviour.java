@@ -1,9 +1,7 @@
 package com.mason.libgui.components.behaviour.drag;
 
 import com.mason.libgui.core.component.Hitbox;
-import com.mason.libgui.core.input.mouse.MouseInputBounder;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Boundable;
 import com.mason.libgui.utils.structures.Coord;
 
 public class StandardDragBehaviour extends AbstractDragBehaviour{

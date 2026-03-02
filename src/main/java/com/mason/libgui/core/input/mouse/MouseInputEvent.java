@@ -73,6 +73,14 @@ public class MouseInputEvent{
         }
     }
 
+    public boolean isMouseButtonOneDown(){
+        return (event.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0;
+    }
+
+    public boolean isMouseButtonTwoDown(){
+        return (event.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0;
+    }
+
 
     private static class RejectedFlag{
 

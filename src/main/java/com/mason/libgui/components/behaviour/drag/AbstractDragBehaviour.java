@@ -1,24 +1,21 @@
 package com.mason.libgui.components.behaviour.drag;
 
-import com.mason.libgui.components.behaviour.MouseCaptureBehaviour;
-import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
-import com.mason.libgui.core.input.guiLayer.GUIInputSocket;
+import com.mason.libgui.components.behaviour.MouseInputListenerWithCapture;
 import com.mason.libgui.core.input.guiLayer.MouseInputCapturer;
-import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 
-public abstract class AbstractDragBehaviour implements BoundedMouseInputListener, GUIInputSocket{
+public abstract class AbstractDragBehaviour extends MouseInputListenerWithCapture{
 
-    private final MouseCaptureBehaviour mouseCapture;
+
     private boolean currentlyDragging = false;
 
 
     protected AbstractDragBehaviour(){
-        mouseCapture = MouseCaptureBehaviour.buildWithDelegateSocket(this);
+        super();
     }
 
     protected AbstractDragBehaviour(MouseInputCapturer mouseInputCapturer){
-        mouseCapture = MouseCaptureBehaviour.buildWithDelegateSocketAndCustomCapturer(this, mouseInputCapturer);
+        super(mouseInputCapturer);
     }
 
 
@@ -26,23 +23,12 @@ public abstract class AbstractDragBehaviour implements BoundedMouseInputListener
         return currentlyDragging;
     }
 
-    protected MouseCaptureBehaviour getMouseCaptureBehaviour(){
-        return mouseCapture;
-    }
-
-
-    @Override
-    public void setInputSource(GUIInputRegister<BoundedMouseInputListener> inputSource){
-        mouseCapture.setInputRegister(inputSource);
-        BoundedMouseInputListener.super.setInputSource(inputSource);
-    }
-
 
     @Override
     public void onMousePressed(MouseInputEvent event){
         if(!currentlyDragging){
             currentlyDragging = true;
-            mouseCapture.captureMouse();
+            captureMouse();
             onDragStart(event);
         }
     }
@@ -64,7 +50,7 @@ public abstract class AbstractDragBehaviour implements BoundedMouseInputListener
     public void onMouseReleased(MouseInputEvent event){
         if(currentlyDragging){
             currentlyDragging = false;
-            mouseCapture.releaseMouse();
+            releaseMouse();
             onDragRelease(event);
         }
     }

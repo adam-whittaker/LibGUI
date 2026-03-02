@@ -28,8 +28,8 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
         return new PanZoomBehaviour(viewport, capturer);
     }
 
-    public static PanZoomBehaviour buildFullyZoomedOutDefaultBehaviour(Consumer<Graphics2D> renderable, RectQuery clampingRect, ViewportMouseInputCapturer capturer){
-        Viewport viewport = Viewport.buildViewportWithDefaultZoomAndInitialView(renderable, clampingRect);
+    public static PanZoomBehaviour buildFullyZoomedOutBehaviour(Consumer<Graphics2D> renderable, RectQuery clampingRect, ViewportMouseInputCapturer capturer){
+        Viewport viewport = Viewport.buildViewportWithDefaultFullyZoomedOutZoom(renderable, clampingRect);
         return new PanZoomBehaviour(viewport, capturer);
     }
 

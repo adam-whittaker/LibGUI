@@ -65,7 +65,7 @@ class ViewportTest{
         Rect bounding = new Rect(5, 7, 50, 60);
         Consumer<Graphics2D> renderable = g -> {};
 
-        Viewport viewport = Viewport.buildViewportWithDefaultZoomAndInitialView(renderable, bounding);
+        Viewport viewport = Viewport.buildViewportWithDefaultFullyZoomedOutZoom(renderable, bounding);
 
         // View top-left should be at the boundary
         assertEquals(new Coord(0, 0), viewport.getPreciseTopLeft());

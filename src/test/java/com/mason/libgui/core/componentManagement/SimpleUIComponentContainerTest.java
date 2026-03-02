@@ -1,7 +1,6 @@
 package com.mason.libgui.core.componentManagement;
 
-import com.mason.libgui.core.component.Hitbox;
-import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.component.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,27 +14,23 @@ import java.util.List;
 
 class SimpleUIComponentContainerTest{
 
-    private static class TestHitbox implements Hitbox{
-        Coord coord = new Coord(0, 0);
+    private static class TestHitbox extends HitboxRect{
+
         boolean withinBoundsReturn = false;
+
+
+        public TestHitbox(){
+            super(new Coord(0, 0), new Size(-1, -1));
+        }
 
         @Override
         public boolean withinBounds(Coord c) {
             return withinBoundsReturn;
         }
 
-        @Override
-        public void setCoord(Coord c) {
-            coord = c;
-        }
-
-        @Override
-        public Coord getCoord() {
-            return coord;
-        }
     }
 
-    private static class TestComponent extends UIComponent {
+    private static class TestComponent extends AbstractUIComponent{
         final String name;
 
         public TestComponent(String name) {

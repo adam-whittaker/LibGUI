@@ -1,8 +1,6 @@
 package com.mason.libgui.components.panes;
 
-import com.mason.libgui.core.component.Hitbox;
-import com.mason.libgui.core.component.HitboxRect;
-import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.component.*;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.componentLayer.GUIMouseInputCoagulator;
@@ -24,14 +22,19 @@ import java.lang.reflect.Field;
 
 class PaneTest {
 
-    private static class TestHitbox implements Hitbox{
+    private static class TestHitbox extends HitboxRect{
         Coord coord = new Coord(0, 0);
+
+        public TestHitbox(){
+            super(new Coord(0, 0), new Size(-1, -1));
+        }
+
         @Override public boolean withinBounds(Coord c) { return true; }
         @Override public void setCoord(Coord c) { coord = c; }
         @Override public Coord getCoord() { return coord; }
     }
 
-    private static class TestComponent extends UIComponent{
+    private static class TestComponent extends AbstractUIComponent{
         boolean renderCalled = false;
         Graphics2D lastGraphics;
         boolean tickCalled = false;
@@ -96,7 +99,7 @@ class PaneTest {
     @Test
     void render_appliesPaneTransformAndRendersChildComponents() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(10, 20), new Size(30, 40));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
 
         UIComponentManager mgr = getComponentManager(pane);
         TestComponent child = new TestComponent();
@@ -143,7 +146,7 @@ class PaneTest {
     @Test
     void tick_callsTickOnAllChildComponents() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
 
         TestComponent c1 = new TestComponent();
         TestComponent c2 = new TestComponent();
@@ -159,7 +162,7 @@ class PaneTest {
     @Test
     void removeComponent_stopsTickingRemovedComponent() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
 
         TestComponent c1 = new TestComponent();
         TestComponent c2 = new TestComponent();
@@ -186,7 +189,7 @@ class PaneTest {
     @Test
     void addKeyListener_registersWithUnderlyingComponentManager() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
         UIComponentManager mgr = getComponentManager(pane);
 
         TestKeyListener listener = new TestKeyListener();
@@ -204,7 +207,7 @@ class PaneTest {
     @Test
     void removeKeyListener_unregistersFromUnderlyingComponentManager() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
         UIComponentManager mgr = getComponentManager(pane);
 
         TestKeyListener listener = new TestKeyListener();
@@ -223,7 +226,7 @@ class PaneTest {
     @Test
     void addMouseInputListener_registersWithUnderlyingComponentManager() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
         UIComponentManager mgr = getComponentManager(pane);
 
         TestBoundedMouseListener listener = new TestBoundedMouseListener();
@@ -254,7 +257,7 @@ class PaneTest {
     @Test
     void removeMouseInputListener_unregistersFromUnderlyingComponentManager() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(100, 100));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
         UIComponentManager mgr = getComponentManager(pane);
 
         TestBoundedMouseListener listener = new TestBoundedMouseListener();
@@ -285,7 +288,7 @@ class PaneTest {
     @Test
     void registerForGUIInput_registersInputTranslatorAsKeyAndMouseListener() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(50, 50));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
 
         PaneGUIInputTranslator translator = getInputTranslator(pane);
 
@@ -303,7 +306,7 @@ class PaneTest {
     @Test
     void deregisterForGUIInput_removesInputTranslatorFromKeyAndMouseListeners() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(50, 50));
-        Pane pane = new Pane(boundary);
+        Pane pane = Pane.build(boundary);
 
         PaneGUIInputTranslator translator = getInputTranslator(pane);
 

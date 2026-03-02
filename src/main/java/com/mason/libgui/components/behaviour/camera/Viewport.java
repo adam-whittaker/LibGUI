@@ -37,7 +37,7 @@ public class Viewport{
         return new Viewport(renderable, boundingRect, initialView, zoom);
     }
 
-    static Viewport buildViewportWithDefaultZoomAndInitialView(Consumer<Graphics2D> renderable, RectQuery boundingRect){
+    static Viewport buildViewportWithDefaultFullyZoomedOutZoom(Consumer<Graphics2D> renderable, RectQuery boundingRect){
         Rect initialView = Rect.buildRect(new Coord(0, 0), boundingRect.getSize());
         return new Viewport(renderable, boundingRect, initialView, Zoom.buildDefaultFullyZoomedOutZoom());
     }

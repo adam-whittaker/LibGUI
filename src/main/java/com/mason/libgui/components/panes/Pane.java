@@ -2,6 +2,7 @@
 package com.mason.libgui.components.panes;
 
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
+import com.mason.libgui.core.component.AbstractUIComponent;
 import com.mason.libgui.core.component.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.componentManagement.UIComponentContainer;
@@ -9,42 +10,51 @@ import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.InputDelegator;
-import com.mason.libgui.utils.structures.Size;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
 
-public class Pane extends UIComponent implements UIComponentContainer, GUIInputRegister<BoundedMouseInputListener>, InputDelegator{
+public class Pane extends AbstractUIComponent implements UIComponentContainer, GUIInputRegister<BoundedMouseInputListener>, InputDelegator{
 
 
     private final UIComponentManager componentManager;
     private final PaneGUIInputTranslator inputTranslator;
     private final GraphicsTransformBehaviour graphicsTransform;
-    private final Size size;
 
 
-    protected Pane(HitboxRect boundary){
-        this(boundary, UIComponentManager.buildSimpleUIComponentManager());
-    }
-
-    protected Pane(HitboxRect boundary, UIComponentManager componentManager){
-        super(boundary);
-        this.componentManager = componentManager;
-        inputTranslator = new PaneGUIInputTranslator(boundary);
+    protected Pane(PaneSkeleton skeleton){
+        super(skeleton.getBoundary());
+        componentManager = skeleton.getComponentManager();
+        inputTranslator = new PaneGUIInputTranslator(skeleton.getBoundary());
         inputTranslator.setDelegateSocket(componentManager.getInputDistributor());
 
         PaneGraphicsTransformBuilder transformBuilder =
-                new PaneGraphicsTransformBuilder(this::renderAfterTranslation, boundary);
+                new PaneGraphicsTransformBuilder(this::renderAfterTranslation, skeleton.getBoundary());
         graphicsTransform = transformBuilder.build();
-        this.size = boundary.getSize();
+        addItemsFromSkeleton(skeleton);
     }
 
-    public static Pane buildDefault(HitboxRect boundary){
-        return new Pane(boundary);
+    private void addItemsFromSkeleton(PaneSkeleton skeleton){
+        for(UIComponent component : skeleton.getComponents()){
+            this.addComponent(component);
+        }
+        for(BoundedMouseInputListener mouseListener : skeleton.getMouseInputListeners()){
+            this.addMouseInputListener(mouseListener);
+        }
+        for(KeyListener keyListener : skeleton.getKeyListeners()){
+            this.addKeyListener(keyListener);
+        }
     }
 
-    public static Pane build(HitboxRect boundary, UIComponentManager componentManager){
-        return new Pane(boundary, componentManager);
+    public static Pane build(HitboxRect boundary){
+        return buildWithCustomComponentManager(boundary, UIComponentManager.buildSimpleUIComponentManager());
+    }
+
+    public static Pane buildWithCustomComponentManager(HitboxRect boundary, UIComponentManager componentManager){
+        PaneSkeleton skeleton = new PaneSkeleton();
+        skeleton.setBoundary(boundary);
+        skeleton.setComponentManager(componentManager);
+        return new Pane(skeleton);
     }
 
 
@@ -55,8 +65,18 @@ public class Pane extends UIComponent implements UIComponentContainer, GUIInputR
     }
 
     protected void renderAfterTranslation(Graphics2D g){
+        drawBackground(g);
+        renderComponents(g);
+        drawForeground(g);
+    }
+
+    protected void renderComponents(Graphics2D g){
         componentManager.renderComponents(g);
     }
+
+    protected void drawBackground(Graphics2D g){}
+
+    protected void drawForeground(Graphics2D g){}
 
 
     //Ticking
@@ -74,11 +94,6 @@ public class Pane extends UIComponent implements UIComponentContainer, GUIInputR
     @Override
     public void removeComponent(UIComponent comp){
         componentManager.removeComponent(comp);
-    }
-
-
-    public Size getSize(){
-        return size;
     }
 
 

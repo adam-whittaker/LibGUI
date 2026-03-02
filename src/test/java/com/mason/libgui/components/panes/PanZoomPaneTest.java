@@ -3,9 +3,7 @@ package com.mason.libgui.components.panes;
 import com.mason.libgui.components.behaviour.camera.PanZoomBehaviour;
 import com.mason.libgui.components.behaviour.camera.Viewport;
 import com.mason.libgui.components.behaviour.camera.Zoom;
-import com.mason.libgui.core.component.Hitbox;
-import com.mason.libgui.core.component.HitboxRect;
-import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.component.*;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 
@@ -24,14 +22,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PanZoomPaneTest{
 
-    private static class TestHitbox implements Hitbox{
+    private static class TestHitbox extends HitboxRect{
         Coord coord = new Coord(0, 0);
+
+        public TestHitbox(){
+            super(new Coord(0, 0), new Size(-1, -1));
+        }
+
         @Override public boolean withinBounds(Coord c) { return true; }
         @Override public void setCoord(Coord c) { coord = c; }
         @Override public Coord getCoord() { return coord; }
     }
 
-    private static class TestComponent extends UIComponent{
+    private static class TestComponent extends AbstractUIComponent{
         boolean renderCalled = false;
         Graphics2D lastGraphics;
         boolean tickCalled = false;
@@ -137,12 +140,13 @@ class PanZoomPaneTest{
     void build_configuresViewportWithInitialViewAndZoom() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(5, 7), new Size(100, 80));
         Rect initialView = new Rect(10, 20, 30, 40);
+        Rect clampingRect = new Rect(10, 20, 30, 40);
 
         // Create a Zoom via reflection (private ctor)
         Zoom zoom = newZoom(1.0, 16.0, 2.0, 2.5); // initial zoom 2.5
 
-        PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.build(boundary, initialView, boundary, zoom);
+        PanZoomPaneSkeleton skeleton = PanZoomPaneBuilder.buildSkeleton(boundary, initialView, clampingRect, zoom);
+        PanZoomPane pane = new PanZoomPane(skeleton);
 
         PanZoomBehaviour behaviour = getPanZoomBehaviour(pane);
         Viewport viewport = getViewport(behaviour);
@@ -156,8 +160,8 @@ class PanZoomPaneTest{
     @Test
     void buildFullyZoomedOutPane_usesBoundaryAsInitialViewAndDefaultZoomFields() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(200, 150));
-        PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.buildFullyZoomedOutPane(boundary);
+        PanZoomPaneSkeleton skeleton = PanZoomPaneBuilder.buildSkeletonWithFullyZoomedOutBehaviour(boundary);
+        PanZoomPane pane = new PanZoomPane(skeleton);
 
         PanZoomBehaviour behaviour = getPanZoomBehaviour(pane);
         Viewport viewport = getViewport(behaviour);
@@ -180,8 +184,8 @@ class PanZoomPaneTest{
     void render_usesPanAndZoomAndUltimatelyRendersChildComponents() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(10, 20), new Size(100, 80));
 
-        PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.buildFullyZoomedOutPane(boundary);
+        PanZoomPaneSkeleton skeleton = PanZoomPaneBuilder.buildSkeletonWithFullyZoomedOutBehaviour(boundary);
+        PanZoomPane pane = new PanZoomPane(skeleton);
 
         TestComponent child = new TestComponent();
         pane.addComponent(child);
@@ -212,8 +216,8 @@ class PanZoomPaneTest{
     @Test
     void registerForGUIInput_registersPaneTranslatorAndPanZoomBehaviour() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(50, 50));
-        PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.buildFullyZoomedOutPane(boundary);
+        PanZoomPaneSkeleton skeleton = PanZoomPaneBuilder.buildSkeletonWithFullyZoomedOutBehaviour(boundary);
+        PanZoomPane pane = new PanZoomPane(skeleton);
 
         PaneGUIInputTranslator translator = getInputTranslator(pane);
 
@@ -233,8 +237,8 @@ class PanZoomPaneTest{
     @Test
     void deregisterForGUIInput_removesPaneTranslatorAndPanZoomBehaviour() throws Exception {
         HitboxRect boundary = new HitboxRect(new Coord(0, 0), new Size(50, 50));
-        PanZoomPaneBuilder<PanZoomPane> builder = new PanZoomPaneBuilder<>(PanZoomPane::new);
-        PanZoomPane pane = builder.buildFullyZoomedOutPane(boundary);
+        PanZoomPaneSkeleton skeleton = PanZoomPaneBuilder.buildSkeletonWithFullyZoomedOutBehaviour(boundary);
+        PanZoomPane pane = new PanZoomPane(skeleton);
 
         PaneGUIInputTranslator translator = getInputTranslator(pane);
         PanZoomBehaviour panAndZoom = getPanZoomBehaviour(pane);
