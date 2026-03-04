@@ -15,4 +15,5 @@ public interface BoundedMouseInputListener extends MouseInputListener, Boundable
     default void unsetInputSource(GUIInputRegister<BoundedMouseInputListener> inputSource){
         inputSource.removeMouseInputListener(this);
     }
+
 }

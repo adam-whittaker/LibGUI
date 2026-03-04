@@ -1,9 +1,10 @@
 package com.mason.libgui.core.component;
 
 import com.mason.libgui.utils.structures.Coord;
+import com.mason.libgui.utils.structures.RectQuery;
 import com.mason.libgui.utils.structures.Size;
 
-public abstract class AbstractUIComponent implements UIComponent{
+public abstract class AbstractUIComponent implements UIComponent, RectQuery{
 
 
     private final HitboxRect hitbox;
@@ -29,6 +30,7 @@ public abstract class AbstractUIComponent implements UIComponent{
         return hitbox.getCoord();
     }
 
+    @Override
     public Size getSize(){
         return hitbox.getSize();
     }

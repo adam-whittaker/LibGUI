@@ -4,13 +4,13 @@ package com.mason.libgui.components.toggles;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ToggleGroup implements ToggleEventListener{
+public class ExclusiveToggleGroup implements ToggleEventListener{
 
 
     private final Set<Toggle> toggles;
 
 
-    public ToggleGroup(){
+    public ExclusiveToggleGroup(){
         this.toggles = new HashSet<>();
     }
 

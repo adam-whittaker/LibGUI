@@ -25,4 +25,8 @@ public record Size(int width, int height) implements Boundable{
         return new Rect(0, 0, width, height);
     }
 
+    public boolean fits(Size size){
+        return size.width <= width && size.height <= height;
+    }
+
 }

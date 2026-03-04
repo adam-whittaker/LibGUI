@@ -1,6 +1,7 @@
 package com.mason.libgui.components.deco;
 
 import com.mason.libgui.components.toggles.ToggleState;
+import com.mason.libgui.utils.ImageUtils;
 import com.mason.libgui.utils.structures.RectQuery;
 
 import javax.imageio.ImageIO;
@@ -30,12 +31,7 @@ public class BasicButtonDeco implements ButtonDeco{
     }
 
     public static BasicButtonDeco build(String iconFilepath){
-        BufferedImage image;
-        try {
-            image = ImageIO.read(new File(iconFilepath));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load image", e);
-        }
+        BufferedImage image = ImageUtils.readImage(iconFilepath);
         return new BasicButtonDeco(image);
     }
 

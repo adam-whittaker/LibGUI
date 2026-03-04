@@ -22,7 +22,7 @@ public class StandardDragBehaviour extends AbstractDragBehaviour{
         return dragRegion.withinBounds(c);
     }
 
-    Hitbox getDragRegion(){
+    protected Hitbox getDragRegion(){
         return dragRegion;
     }
 
