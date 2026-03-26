@@ -1,7 +1,7 @@
 package com.mason.libgui.core.input.mouse;
 
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
-import com.mason.libgui.utils.structures.Boundable;
+import com.mason.libgui.utils.structures.interfaces.Boundable;
 
 public interface BoundedMouseInputListener extends MouseInputListener, Boundable, InputDelegator{
 

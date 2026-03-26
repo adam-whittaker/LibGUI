@@ -1,6 +1,8 @@
 package com.mason.libgui.components.panes;
 
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
+import com.mason.libgui.components.panes.construction.PaneGraphicsTransformBuilder;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

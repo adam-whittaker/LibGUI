@@ -21,8 +21,8 @@ public final class ComponentIDRegister{
         return idMap.get(componentName);
     }
 
-    public static int registerComponent(String componentName){
-        componentName = componentName.toUpperCase();
+    public static int registerComponent(Identifiable component){
+        String componentName = component.getName().toUpperCase();
         if(idMap.containsKey(componentName)){
             throw new IllegalArgumentException("Component name already registered: " + componentName);
         }

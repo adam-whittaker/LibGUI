@@ -2,10 +2,12 @@
 package com.mason.libgui.components.panes;
 
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
+import com.mason.libgui.components.panes.construction.PaneGraphicsTransformBuilder;
+import com.mason.libgui.components.panes.construction.PaneSkeleton;
 import com.mason.libgui.core.component.AbstractUIComponent;
-import com.mason.libgui.core.component.HitboxRect;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
-import com.mason.libgui.core.componentManagement.UIComponentContainer;
+import com.mason.libgui.core.componentManagement.InteractiveContainer;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
@@ -14,7 +16,7 @@ import com.mason.libgui.core.input.mouse.InputDelegator;
 import java.awt.*;
 import java.awt.event.KeyListener;
 
-public class Pane extends AbstractUIComponent implements UIComponentContainer, GUIInputRegister<BoundedMouseInputListener>, InputDelegator{
+public class Pane extends AbstractUIComponent implements InteractiveContainer, InputDelegator{
 
 
     private final UIComponentManager componentManager;

@@ -2,6 +2,7 @@
 package com.mason.libgui.core.guiManagement;
 
 import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.componentManagement.InteractiveContainer;
 import com.mason.libgui.core.componentManagement.UIComponentContainer;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
@@ -14,7 +15,7 @@ import com.mason.libgui.utils.structures.Size;
 
 import java.awt.event.KeyListener;
 
-public class GUI implements UIComponentContainer, GUIInputRegister<BoundedMouseInputListener>{
+public class GUI implements InteractiveContainer{
 
 
     private final Window window;

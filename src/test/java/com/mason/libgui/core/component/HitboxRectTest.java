@@ -1,5 +1,7 @@
 package com.mason.libgui.core.component;
 
+import com.mason.libgui.core.component.hitbox.HitboxRect;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +15,7 @@ class HitboxRectTest{
         Coord topLeft = new Coord(10, 20);
         Size size = new Size(5, 7);
 
-        HitboxRect hb = new HitboxRect(topLeft, size);
+        HitboxRect hb = HitboxRect.build(topLeft, size);
 
         assertEquals(topLeft, hb.getCoord());
         assertEquals(size, hb.getSize());
@@ -23,7 +25,7 @@ class HitboxRectTest{
     void toRect_buildsRectFromTopLeftAndSize() {
         Coord topLeft = new Coord(3, 4);
         Size size = new Size(10, 20);
-        HitboxRect hb = new HitboxRect(topLeft, size);
+        HitboxRect hb = HitboxRect.build(topLeft, size);
 
         Rect expected = Rect.buildRect(topLeft, size);
 
@@ -34,7 +36,7 @@ class HitboxRectTest{
     void withinBounds_usesRectSemantics() {
         Coord topLeft = new Coord(10, 20);
         Size size = new Size(5, 7); // x in [10,15), y in [20,27)
-        HitboxRect hb = new HitboxRect(topLeft, size);
+        HitboxRect hb = HitboxRect.build(topLeft, size);
 
         Coord inside = new Coord(12, 22);
         Coord boundaryX = new Coord(15, 22); // x == 10 + 5
@@ -49,7 +51,7 @@ class HitboxRectTest{
 
     @Test
     void setCoord_movesHitbox() {
-        HitboxRect hb = new HitboxRect(new Coord(0, 0), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(0, 0), new Size(5, 5));
 
         assertTrue(hb.withinBounds(new Coord(2, 2)));
 
@@ -61,7 +63,7 @@ class HitboxRectTest{
 
     @Test
     void setSize_changesBounds() {
-        HitboxRect hb = new HitboxRect(new Coord(0, 0), new Size(10, 10));
+        HitboxRect hb = HitboxRect.build(new Coord(0, 0), new Size(10, 10));
 
         // Initially inside
         assertTrue(hb.withinBounds(new Coord(9, 9)));
@@ -77,7 +79,7 @@ class HitboxRectTest{
 
     @Test
     void clampWithinBoundary_doesNothingWhenAlreadyInside() {
-        HitboxRect hb = new HitboxRect(new Coord(10, 20), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(10, 20), new Size(5, 5));
         Rect boundary = new Rect(0, 0, 100, 100);
 
         hb.clampWithinBoundary(boundary);
@@ -87,7 +89,7 @@ class HitboxRectTest{
 
     @Test
     void clampWithinBoundary_clampsLeftAndTop() {
-        HitboxRect hb = new HitboxRect(new Coord(-10, -20), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(-10, -20), new Size(5, 5));
         Rect boundary = new Rect(0, 0, 100, 100);
 
         hb.clampWithinBoundary(boundary);
@@ -98,7 +100,7 @@ class HitboxRectTest{
 
     @Test
     void clampWithinBoundary_clampsRightAndBottomToBoundaryPlusSize() {
-        HitboxRect hb = new HitboxRect(new Coord(200, 300), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(200, 300), new Size(5, 5));
         Rect boundary = new Rect(10, 20, 100, 100);
 
         hb.clampWithinBoundary(boundary);
@@ -109,7 +111,7 @@ class HitboxRectTest{
 
     @Test
     void clampWithinBoundary_clampsIndependentlyOnEachAxis() {
-        HitboxRect hb = new HitboxRect(new Coord(-5, 500), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(-5, 500), new Size(5, 5));
         Rect boundary = new Rect(10, 20, 100, 100);
 
         hb.clampWithinBoundary(boundary);
@@ -121,7 +123,7 @@ class HitboxRectTest{
 
     @Test
     void clampWithinBoundary_usesBoundaryRectQueryInterface() {
-        HitboxRect hb = new HitboxRect(new Coord(50, 50), new Size(5, 5));
+        HitboxRect hb = HitboxRect.build(new Coord(50, 50), new Size(5, 5));
 
         RectQuery boundary = Rect.buildRect(new Coord(0, 0), new Size(20, 30));
 

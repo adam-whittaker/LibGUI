@@ -1,6 +1,6 @@
 package com.mason.libgui.core.componentManagement;
 
-import com.mason.libgui.core.component.Hitbox;
+import com.mason.libgui.core.component.hitbox.Hitbox;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.input.componentLayer.GUIInputDistributor;
 import com.mason.libgui.core.input.componentLayer.UIComponentManagerInputDistributor;

@@ -1,7 +1,7 @@
 package com.mason.libgui.testHelpers.stubs;
 
 import com.mason.libgui.components.panes.PanZoomPane;
-import com.mason.libgui.components.panes.PanZoomPaneSkeleton;
+import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
 import com.mason.libgui.utils.structures.Size;
 
 import java.awt.*;

@@ -1,6 +1,7 @@
 package com.mason.libgui.components.panes;
 
 import com.mason.libgui.components.deco.PaneDeco;
+import com.mason.libgui.components.panes.construction.PaneSkeleton;
 
 import java.awt.*;
 

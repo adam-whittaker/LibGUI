@@ -1,10 +1,8 @@
 package com.mason.libgui.testHelpers.stubs;
 
 import com.mason.libgui.components.behaviour.drag.StandardDragBehaviour;
-import com.mason.libgui.core.component.Hitbox;
-import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
-import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.utils.structures.Boundable;
+import com.mason.libgui.core.component.hitbox.Hitbox;
+import com.mason.libgui.utils.structures.interfaces.Boundable;
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.Size;
 

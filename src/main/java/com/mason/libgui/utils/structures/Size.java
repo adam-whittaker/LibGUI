@@ -1,5 +1,7 @@
 package com.mason.libgui.utils.structures;
 
+import com.mason.libgui.utils.structures.interfaces.Boundable;
+
 public record Size(int width, int height) implements Boundable{
 
 

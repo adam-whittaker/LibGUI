@@ -1,12 +1,11 @@
 package com.mason.libgui.testHelpers.stubs;
 
-import com.mason.libgui.core.component.HitboxRect;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.InputDelegator;
 import com.mason.libgui.core.input.mouse.MouseInputBounder;
-import com.mason.libgui.utils.structures.Boundable;
 import com.mason.libgui.utils.structures.Coord;
 import com.mason.libgui.utils.structures.Size;
 
@@ -22,7 +21,7 @@ public class DefaultUIComponent extends UIComponent implements InputDelegator{
 
 
     public DefaultUIComponent(Coord topLeft, Size size, Color color, Runnable ticker, MouseInputBounder mouseInput){
-        super(new HitboxRect(topLeft, size));
+        super(HitboxRect.build(topLeft, size));
         this.color = color;
         this.ticker = ticker;
         this.size = size;

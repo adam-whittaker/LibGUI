@@ -3,7 +3,7 @@ package com.mason.libgui.components.behaviour.camera;
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.RectQuery;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import com.mason.libgui.utils.structures.*;
 
 import java.awt.*;

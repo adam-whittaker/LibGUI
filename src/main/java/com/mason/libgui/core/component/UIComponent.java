@@ -1,6 +1,8 @@
 
 package com.mason.libgui.core.component;
 
+import com.mason.libgui.core.component.hitbox.Hitbox;
+
 import java.awt.*;
 
 public interface UIComponent extends Hitbox{

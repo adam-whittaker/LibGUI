@@ -2,6 +2,7 @@ package com.mason.libgui.components.panes;
 
 import com.mason.libgui.core.input.guiLayer.GUIInputSocket;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,7 +79,7 @@ class PaneGUIInputTranslatorTest{
     }
 
     /** RectQuery used as the boundary; withinBounds is implemented via a Rect. */
-    private static class TestBoundaryRect implements RectQuery {
+    private static class TestBoundaryRect implements RectQuery{
 
         private final Coord coord;
         private final Size size;

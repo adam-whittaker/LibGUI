@@ -2,13 +2,12 @@ package com.mason.libgui.components.panes;
 
 import com.mason.libgui.components.behaviour.camera.PanZoomBehaviour;
 import com.mason.libgui.components.behaviour.camera.Zoom;
-import com.mason.libgui.core.component.HitboxRect;
-import com.mason.libgui.core.component.UIComponent;
-import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.utils.structures.RectQuery;
+import com.mason.libgui.components.panes.construction.PanZoomPaneBuilder;
+import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 
 import java.awt.*;
-import java.awt.event.KeyListener;
 
 public class PanZoomPane extends Pane{
 

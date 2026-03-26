@@ -1,6 +1,6 @@
 package com.mason.libgui.components.behaviour.drag;
 
-import com.mason.libgui.core.component.HitboxRect;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ class ClampedDragBehaviourTest {
     @Test
     void onDragIncrement_movesRegionNormally_whenResultInsideClamp() throws Exception {
         // Drag region starts at (10,20), size irrelevant to this test
-        HitboxRect dragRect = new HitboxRect(new Coord(10, 20), new Size(5, 5));
+        HitboxRect dragRect = HitboxRect.build(new Coord(10, 20), new Size(5, 5));
         Rect clampRect = new Rect(0, 0, 100, 100); // generous boundary
 
         ClampedDragBehaviour behaviour = new ClampedDragBehaviour(dragRect, clampRect);
@@ -60,7 +60,7 @@ class ClampedDragBehaviourTest {
     @Test
     void onDragIncrement_clampsRegionWhenNewCoordOutsideClampRect() throws Exception {
         // Drag region starts at (0,0)
-        HitboxRect dragRect = new HitboxRect(new Coord(0, 0), new Size(5, 5));
+        HitboxRect dragRect = HitboxRect.build(new Coord(0, 0), new Size(5, 5));
         Rect clampRect = new Rect(0, 0, 20, 20); // boundary from (0,0) to (20,20) per clamping logic
 
         ClampedDragBehaviour behaviour = new ClampedDragBehaviour(dragRect, clampRect);
@@ -84,7 +84,7 @@ class ClampedDragBehaviourTest {
     @Test
     void onDragIncrement_clampsIndependentlyOnEachAxis() throws Exception {
         // Drag region starts at (10,10), clampRect from (0,0) to (20,20)
-        HitboxRect dragRect = new HitboxRect(new Coord(10, 10), new Size(5, 5));
+        HitboxRect dragRect = HitboxRect.build(new Coord(10, 10), new Size(5, 5));
         Rect clampRect = new Rect(0, 0, 20, 20);
 
         ClampedDragBehaviour behaviour = new ClampedDragBehaviour(dragRect, clampRect);

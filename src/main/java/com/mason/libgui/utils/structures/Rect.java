@@ -1,5 +1,7 @@
 package com.mason.libgui.utils.structures;
 
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
+
 public record Rect(int x, int y, int width, int height) implements RectQuery{
 
 

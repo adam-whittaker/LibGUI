@@ -1,6 +1,7 @@
 package com.mason.libgui.core.componentManagement;
 
 import com.mason.libgui.core.component.*;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

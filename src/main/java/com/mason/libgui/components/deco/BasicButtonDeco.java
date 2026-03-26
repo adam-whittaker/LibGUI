@@ -1,16 +1,13 @@
 package com.mason.libgui.components.deco;
 
-import com.mason.libgui.components.toggles.ToggleState;
+import com.mason.libgui.components.toggles.ToggleRenderState;
 import com.mason.libgui.utils.ImageUtils;
-import com.mason.libgui.utils.structures.RectQuery;
+import com.mason.libgui.utils.structures.interfaces.RectQuery;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class BasicButtonDeco implements ButtonDeco{
 
@@ -37,7 +34,7 @@ public class BasicButtonDeco implements ButtonDeco{
 
 
     @Override
-    public void drawButtonDeco(Graphics2D g, RectQuery box, ToggleState state){
+    public void drawButtonDeco(Graphics2D g, RectQuery box, ToggleRenderState state){
         Graphics2D g2 = (Graphics2D) g.create();
         try{
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -48,7 +45,7 @@ public class BasicButtonDeco implements ButtonDeco{
         }
     }
 
-    private void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ToggleState state){
+    private void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ToggleRenderState state){
         RectangularShape shape = constructShape(box);
         fillBackgroundGradient(g, shape, state);
         drawInnerHighlight(g, box, state);
@@ -63,7 +60,7 @@ public class BasicButtonDeco implements ButtonDeco{
         return new RoundRectangle2D.Float(box.x(), box.y(), box.width() - 1, box.height() - 1, ARC, ARC);
     }
 
-    private void fillBackgroundGradient(Graphics2D g, RectangularShape shape, ToggleState state){
+    private void fillBackgroundGradient(Graphics2D g, RectangularShape shape, ToggleRenderState state){
         Color baseTop = getBaseTopColor(state);
         Color baseBot = getBaseBottomColor(state);
         GradientPaint gp = new GradientPaint( 0, 0, baseTop, 0, (float)shape.getHeight(), baseBot);
@@ -71,24 +68,24 @@ public class BasicButtonDeco implements ButtonDeco{
         g.fill(shape);
     }
 
-    private Color getBaseTopColor(ToggleState state){
+    private Color getBaseTopColor(ToggleRenderState state){
         if(state.isDown()){
             return shadeBaseColorBasedOnState(BASE_TOP_BUTTON_DOWN_COLOR, state);
         }
         return shadeBaseColorBasedOnState(BASE_TOP_BUTTON_UP_COLOR, state);
     }
 
-    private Color getBaseBottomColor(ToggleState state){
+    private Color getBaseBottomColor(ToggleRenderState state){
         if(state.isDown()){
             return shadeBaseColorBasedOnState(BASE_BOTTOM_BUTTON_DOWN_COLOR, state);
         }
         return shadeBaseColorBasedOnState(BASE_BOTTOM_BUTTON_UP_COLOR, state);
     }
 
-    private Color shadeBaseColorBasedOnState(Color base, ToggleState state){
-        if (state.equals(ToggleState.PRESSED)) {
+    private Color shadeBaseColorBasedOnState(Color base, ToggleRenderState state){
+        if (state.isBeingPressed()) {
             return base.darker();
-        } else if (state.equals(ToggleState.HOVERING)) {
+        } else if (state.isHovering()) {
             return brighten(base, 12);
         }
         return base;
@@ -101,26 +98,26 @@ public class BasicButtonDeco implements ButtonDeco{
         return new Color(r, g, b, c.getAlpha());
     }
 
-    private void drawInnerHighlight(Graphics2D g, RectQuery box, ToggleState state){
+    private void drawInnerHighlight(Graphics2D g, RectQuery box, ToggleRenderState state){
         g.setColor(getInnerHighlightColor(state));
         g.drawRoundRect(box.x()+1, box.y()+1, box.width() - 3, box.height() - 3, ARC - 2, ARC - 2);
     }
 
-    private void drawBorder(Graphics2D g, Shape shape, ToggleState state){
+    private void drawBorder(Graphics2D g, Shape shape, ToggleRenderState state){
         g.setColor(getBorderHighlightColor(state));
         g.draw(shape);
     }
 
-    private Color getBorderHighlightColor(ToggleState state){
-        return new Color(0, 0, 0, state.equals(ToggleState.PRESSED) ? 140 : 110);
+    private Color getBorderHighlightColor(ToggleRenderState state){
+        return new Color(0, 0, 0, state.isBeingPressed() ? 140 : 110);
     }
 
-    private Color getInnerHighlightColor(ToggleState state){
-        return new Color(255, 255, 255, state.equals(ToggleState.PRESSED) ? 18 : 28);
+    private Color getInnerHighlightColor(ToggleRenderState state){
+        return new Color(255, 255, 255, state.isBeingPressed() ? 18 : 28);
     }
 
-    private void tryDrawHoverGlowAccent(Graphics2D g, RectQuery box, ToggleState state){
-        if(state.equals(ToggleState.HOVERING)){
+    private void tryDrawHoverGlowAccent(Graphics2D g, RectQuery box, ToggleRenderState state){
+        if(state.isHovering()){
             g.setColor(HOVER_GLOW_ACCENT_COLOR);
             g.setStroke(new BasicStroke(2f));
             g.drawRoundRect(box.x()+1, box.y()+1, box.width() - 3, box.height() - 3, ARC - 2, ARC - 2);
@@ -128,16 +125,16 @@ public class BasicButtonDeco implements ButtonDeco{
         }
     }
 
-    private void tryDrawSelectedRing(Graphics2D g, RectQuery box, ToggleState state){
-        if(state.equals(ToggleState.SELECTED)){
+    private void tryDrawSelectedRing(Graphics2D g, RectQuery box, ToggleRenderState state){
+        if(state.isDown()){
             g.setColor(SELECTED_RING_COLOR);
             g.setStroke(new BasicStroke(2f));
             g.drawRoundRect(box.x()+2, box.y()+2, box.width() - 5, box.height() - 5, ARC - 4, ARC - 4);
         }
     }
 
-    private void tryDrawPressedDepression(Graphics2D g, ToggleState state){
-        if(state.equals(ToggleState.PRESSED)){
+    private void tryDrawPressedDepression(Graphics2D g, ToggleRenderState state){
+        if(state.isBeingPressed()){
             g.translate(0, 1);
         }
     }

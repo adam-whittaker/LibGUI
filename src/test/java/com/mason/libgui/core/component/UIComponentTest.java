@@ -1,5 +1,6 @@
 package com.mason.libgui.core.component;
 
+import com.mason.libgui.core.component.hitbox.Hitbox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +12,7 @@ import java.awt.*;
 class UIComponentTest{
 
 
-    private static class TestHitbox implements Hitbox {
+    private static class TestHitbox implements Hitbox{
 
         Coord lastSetCoord;
         boolean withinBoundsReturn = false;

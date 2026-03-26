@@ -1,6 +1,6 @@
 package com.mason.libgui.components.behaviour.drag;
 
-import com.mason.libgui.core.component.Hitbox;
+import com.mason.libgui.core.component.hitbox.Hitbox;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import com.mason.libgui.utils.structures.Coord;
 

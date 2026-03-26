@@ -1,6 +1,6 @@
 package com.mason.libgui.components.behaviour.camera;
 
-import com.mason.libgui.core.component.HitboxRect;
+import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
 import org.junit.jupiter.api.Test;
 

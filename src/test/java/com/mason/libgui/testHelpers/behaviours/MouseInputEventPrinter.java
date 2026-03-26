@@ -2,7 +2,7 @@ package com.mason.libgui.testHelpers.behaviours;
 
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Boundable;
+import com.mason.libgui.utils.structures.interfaces.Boundable;
 import com.mason.libgui.utils.structures.Coord;
 
 public class MouseInputEventPrinter implements BoundedMouseInputListener{
