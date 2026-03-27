@@ -43,7 +43,7 @@ public class StandardDragBehaviour extends AbstractDragBehaviour{
         dragRegion.setCoord(newCoord);
     }
 
-    private Coord calculateNewCoord(Coord mouse){
+    Coord calculateNewCoord(Coord mouse){
         return new Coord(mouse.x() - initialDragOffset.x(), mouse.y() - initialDragOffset.y());
     }
 

@@ -41,7 +41,7 @@ public class Pane extends AbstractUIComponent implements InteractiveContainer, I
             this.addComponent(component);
         }
         for(BoundedMouseInputListener mouseListener : skeleton.getMouseInputListeners()){
-            this.addMouseInputListener(mouseListener);
+            mouseListener.setInputSource(this);
         }
         for(KeyListener keyListener : skeleton.getKeyListeners()){
             this.addKeyListener(keyListener);
@@ -122,8 +122,7 @@ public class Pane extends AbstractUIComponent implements InteractiveContainer, I
 
     @Override
     public void setInputSource(GUIInputRegister<BoundedMouseInputListener> inputRegister){
-        inputRegister.addKeyListener(inputTranslator);
-        inputRegister.addMouseInputListener(inputTranslator);
+        inputTranslator.setInputSource(inputRegister);
     }
 
     @Override

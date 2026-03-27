@@ -22,7 +22,7 @@ public class BoundedIntState implements IntState{
 
     @Override
     public void setState(int state){
-        IntState.verifyStateWithinBounds(state, lowerBound, upperBound);
+        IntQuery.verifyStateWithinBounds(state, lowerBound, upperBound);
         this.state = state;
     }
 

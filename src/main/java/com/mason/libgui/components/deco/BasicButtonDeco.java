@@ -23,7 +23,7 @@ public class BasicButtonDeco implements ButtonDeco{
     private final Image icon;
 
 
-    private BasicButtonDeco(Image icon){
+    protected BasicButtonDeco(Image icon){
         this.icon = icon;
     }
 
@@ -45,7 +45,7 @@ public class BasicButtonDeco implements ButtonDeco{
         }
     }
 
-    private void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ToggleRenderState state){
+    protected void drawButtonDecoWithGraphicsContext(Graphics2D g, RectQuery box, ToggleRenderState state){
         RectangularShape shape = constructShape(box);
         fillBackgroundGradient(g, shape, state);
         drawInnerHighlight(g, box, state);
