@@ -1,6 +1,6 @@
 package com.mason.libgui.components.behaviour.camera;
 
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public class ViewDoubleRect{
 

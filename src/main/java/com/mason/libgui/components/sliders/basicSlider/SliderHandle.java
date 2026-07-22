@@ -1,9 +1,9 @@
 package com.mason.libgui.components.sliders.basicSlider;
 
 import com.mason.libgui.components.behaviour.drag.ClampedDragBehaviour;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.states.position.PositionState;
 
 public class SliderHandle extends ClampedDragBehaviour implements PositionState{
 

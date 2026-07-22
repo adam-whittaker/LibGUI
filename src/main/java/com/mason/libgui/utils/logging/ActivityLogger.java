@@ -2,7 +2,7 @@
 package com.mason.libgui.utils.logging;
 
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

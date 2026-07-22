@@ -1,6 +1,6 @@
 package com.mason.libgui.components.behaviour.camera;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 public record ApparentCoord(double x, double y){
 

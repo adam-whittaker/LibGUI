@@ -1,6 +1,6 @@
 package com.mason.libgui.core.input.mouse;
 
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;

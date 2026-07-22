@@ -3,7 +3,7 @@ package com.mason.libgui.core.guiManagement;
 
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.rawLayer.RawInputSocket;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 import javax.swing.*;
 import java.awt.*;

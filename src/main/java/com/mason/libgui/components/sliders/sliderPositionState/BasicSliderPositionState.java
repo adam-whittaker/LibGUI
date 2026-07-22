@@ -1,7 +1,7 @@
 package com.mason.libgui.components.sliders.sliderPositionState;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.Movable;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.Movable;
 
 public class BasicSliderPositionState implements SliderPositionState{
 

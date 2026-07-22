@@ -1,7 +1,7 @@
 package com.mason.libgui.components.panes.layout;
 
-import com.mason.libgui.utils.structures.*;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.*;
+import com.mason.libstruct.interfaces.RectQuery;
 
 import static java.lang.Math.max;
 

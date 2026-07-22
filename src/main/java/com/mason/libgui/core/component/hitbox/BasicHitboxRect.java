@@ -1,7 +1,7 @@
 package com.mason.libgui.core.component.hitbox;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
 
 public class BasicHitboxRect implements HitboxRect{
 

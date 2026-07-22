@@ -5,8 +5,8 @@ import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.guiLayer.GUIMouseInputTransformer;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public class PaneGUIInputTranslator extends GUIMouseInputTransformer implements BoundedMouseInputListener{
 

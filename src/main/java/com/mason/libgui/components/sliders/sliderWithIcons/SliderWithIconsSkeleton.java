@@ -1,7 +1,7 @@
 package com.mason.libgui.components.sliders.sliderWithIcons;
 
 import com.mason.libgui.components.sliders.basicSlider.SliderSkeleton;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 import java.awt.image.BufferedImage;
 

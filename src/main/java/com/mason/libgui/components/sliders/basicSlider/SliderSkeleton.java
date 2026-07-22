@@ -3,7 +3,7 @@ package com.mason.libgui.components.sliders.basicSlider;
 import com.mason.libgui.components.deco.SliderDeco;
 import com.mason.libgui.components.sliders.sliderPositionState.SliderPositionState;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 public class SliderSkeleton{
 

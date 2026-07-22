@@ -5,7 +5,7 @@ import com.mason.libgui.components.behaviour.camera.Zoom;
 import com.mason.libgui.components.panes.construction.PanZoomPaneBuilder;
 import com.mason.libgui.components.panes.construction.PanZoomPaneSkeleton;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 import java.awt.*;
 

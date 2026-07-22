@@ -2,9 +2,9 @@ package com.mason.libgui.components.sliders.basicSlider;
 
 import com.mason.libgui.components.sliders.sliderPositionState.SliderPositionState;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.states.position.PositionState;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.states.position.PositionState;
 
 public class SliderHandleRect implements HitboxRect, PositionState{
 

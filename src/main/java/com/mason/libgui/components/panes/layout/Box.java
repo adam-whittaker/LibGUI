@@ -1,8 +1,8 @@
 package com.mason.libgui.components.panes.layout;
 
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.geo.Size;
 
 import java.util.HashMap;
 import java.util.Map;

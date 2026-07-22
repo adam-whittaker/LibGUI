@@ -1,9 +1,9 @@
 package com.mason.libgui.core.component;
 
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.geo.Size;
 
 public abstract class AbstractUIComponent implements UIComponent, RectQuery{
 

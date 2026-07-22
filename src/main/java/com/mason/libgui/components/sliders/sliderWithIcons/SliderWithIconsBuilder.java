@@ -5,9 +5,9 @@ import com.mason.libgui.components.sliders.sliderPositionState.SliderPositionSta
 import com.mason.libgui.components.sliders.sliderPositionState.SliderPositionStateFactory;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.utils.ImageUtils;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.interfaces.RectQuery;
 
 import java.awt.*;
 

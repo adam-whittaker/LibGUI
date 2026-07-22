@@ -5,7 +5,7 @@ import com.mason.libgui.components.behaviour.MouseInputListenerWithCapture;
 import com.mason.libgui.components.deco.ButtonDeco;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 import java.awt.*;
 

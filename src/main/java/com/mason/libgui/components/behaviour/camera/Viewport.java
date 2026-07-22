@@ -2,9 +2,9 @@ package com.mason.libgui.components.behaviour.camera;
 
 import com.mason.libgui.components.behaviour.GraphicsTransformBehaviour;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
-import com.mason.libgui.utils.structures.*;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.interfaces.RectQuery;
+import com.mason.libstruct.geo.*;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

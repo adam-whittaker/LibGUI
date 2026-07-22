@@ -1,6 +1,6 @@
 package com.mason.libgui.components.deco;
 
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 import java.awt.*;
 

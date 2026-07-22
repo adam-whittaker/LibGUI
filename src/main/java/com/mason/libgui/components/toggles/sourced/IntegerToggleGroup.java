@@ -3,8 +3,8 @@ package com.mason.libgui.components.toggles.sourced;
 import com.mason.libgui.components.deco.ButtonDeco;
 import com.mason.libgui.components.toggles.Toggle;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
-import com.mason.libgui.utils.structures.states.intState.IntState;
-import com.mason.libgui.utils.structures.states.onOff.OnOffState;
+import com.mason.libstruct.states.intState.IntState;
+import com.mason.libstruct.states.onOff.OnOffState;
 
 public class IntegerToggleGroup{
 

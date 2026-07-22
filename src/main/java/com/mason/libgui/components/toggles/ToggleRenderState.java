@@ -1,6 +1,6 @@
 package com.mason.libgui.components.toggles;
 
-import com.mason.libgui.utils.structures.states.onOff.OnOffQuery;
+import com.mason.libstruct.states.onOff.OnOffQuery;
 
 public class ToggleRenderState{
 

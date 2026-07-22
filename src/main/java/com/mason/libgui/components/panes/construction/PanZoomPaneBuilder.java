@@ -4,7 +4,7 @@ import com.mason.libgui.components.behaviour.camera.*;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.componentManagement.SimpleUIComponentContainer;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public class PanZoomPaneBuilder{
 

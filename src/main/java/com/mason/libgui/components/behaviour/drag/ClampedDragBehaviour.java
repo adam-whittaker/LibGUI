@@ -2,10 +2,10 @@ package com.mason.libgui.components.behaviour.drag;
 
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.utils.structures.Coord;
-import com.mason.libgui.utils.structures.Size;
-import com.mason.libgui.utils.structures.interfaces.Movable;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.interfaces.Movable;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public class ClampedDragBehaviour extends StandardDragBehaviour{
 

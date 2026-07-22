@@ -5,7 +5,7 @@ import com.mason.libgui.core.component.UIComponent;
 import com.mason.libgui.core.componentManagement.InteractiveContainer;
 import com.mason.libgui.core.componentManagement.UIComponentManager;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.interfaces.RectQuery;
 
 import java.awt.event.KeyListener;
 import java.util.ArrayList;

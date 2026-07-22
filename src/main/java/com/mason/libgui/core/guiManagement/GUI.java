@@ -11,7 +11,7 @@ import com.mason.libgui.core.input.guiLayer.GUIInputGate;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.rawLayer.RawInputSocket;
 import com.mason.libgui.core.input.rawLayer.RawToGUIInputAdapter;
-import com.mason.libgui.utils.structures.Size;
+import com.mason.libstruct.geo.Size;
 
 import java.awt.event.KeyListener;
 

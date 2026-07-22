@@ -1,7 +1,7 @@
 package com.mason.libgui.core.input.guiLayer;
 
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.utils.structures.Coord;
+import com.mason.libstruct.geo.Coord;
 
 public class MouseInputCapturer extends SimpleGUIInputGate implements BoundedMouseInputListener{
 

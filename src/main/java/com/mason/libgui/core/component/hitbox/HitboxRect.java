@@ -1,7 +1,9 @@
 package com.mason.libgui.core.component.hitbox;
 
-import com.mason.libgui.utils.structures.*;
-import com.mason.libgui.utils.structures.interfaces.RectQuery;
+import com.mason.libstruct.geo.Coord;
+import com.mason.libstruct.geo.Rect;
+import com.mason.libstruct.geo.Size;
+import com.mason.libstruct.interfaces.RectQuery;
 
 public interface HitboxRect extends Hitbox, RectQuery{
 
