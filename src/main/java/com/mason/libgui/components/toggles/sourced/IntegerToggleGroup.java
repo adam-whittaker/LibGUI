@@ -10,10 +10,17 @@ public class IntegerToggleGroup{
 
 
     private final IntState state;
+    private final Runnable toggleChangeListener;
 
+
+    public IntegerToggleGroup(IntState state, Runnable toggleChangeListener){
+        this.state = state;
+        this.toggleChangeListener = toggleChangeListener;
+    }
 
     public IntegerToggleGroup(IntState state){
         this.state = state;
+        this.toggleChangeListener = () -> {};
     }
 
 
@@ -28,6 +35,7 @@ public class IntegerToggleGroup{
             @Override
             public void turnOn(){
                 state.setState(value);
+                toggleChangeListener.run();
             }
 
             @Override
