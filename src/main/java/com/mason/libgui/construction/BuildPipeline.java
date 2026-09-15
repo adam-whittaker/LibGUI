@@ -9,12 +9,13 @@ public class BuildPipeline{
 
 
     private final Map<String, BuildResource> extantResources;
-    private final List<BuildComponent> components;
+    private final BuildComponentCollection components;
 
 
-    public BuildPipeline(Collection<? extends BuildComponent> components){
+    public BuildPipeline(BuildComponentCollection components){
         this.extantResources = new HashMap<>();
-        this.components = PreBuildRequirementsSort.sort(components);
+        this.components = components;
+        components.ensureSorted();
     }
 
 
@@ -38,7 +39,7 @@ public class BuildPipeline{
 
     private void registerResources(BuildComponent component){
         for(BuildResource resource : component.supplyResources()){
-            extantResources.put(resource.getName(), resource);
+            extantResources.put(resource.name(), resource);
         }
     }
 

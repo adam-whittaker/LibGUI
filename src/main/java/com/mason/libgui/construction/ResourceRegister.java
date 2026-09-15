@@ -22,10 +22,10 @@ public class ResourceRegister{
     }
 
     void acceptResource(BuildResource resource){
-        if(!resources.containsKey(resource.getName())){
-            throw new IllegalArgumentException("Resource " + resource.getName() + " not registered!");
+        if(!resources.containsKey(resource.name())){
+            throw new IllegalArgumentException("Resource " + resource.name() + " not registered!");
         }
-        resources.put(resource.getName(), Optional.of(resource));
+        resources.put(resource.name(), Optional.of(resource));
     }
 
     BuildResource getResource(String resourceName){
