@@ -1,65 +1,53 @@
 package com.mason.libgui.construction;
 
-import com.mason.libgui.components.panes.layout.PaneLayout;
-import com.mason.libgui.core.componentManagement.UIComponentContainer;
-
-import java.util.*;
+import java.util.function.Consumer;
 
 public class BuildPipeline{
 
 
-    private final Map<String, BuildResource> extantResources;
     private final BuildComponentCollection components;
+    private final Consumer<String> updater;
 
 
-    public BuildPipeline(BuildComponentCollection components){
-        this.extantResources = new HashMap<>();
+    protected BuildPipeline(BuildComponentCollection components, Consumer<String> updater){
         this.components = components;
-        components.ensureSorted();
+        this.updater = updater;
+    }
+
+    public static BuildPipeline constructPipeline(BuildComponentCollection components, Consumer<String> updater){
+        return new BuildPipeline(components, updater);
+    }
+
+    public static BuildPipeline constructPipelineWithNoUpdater(BuildComponentCollection components){
+        Consumer<String> updater = s -> {};
+        return new BuildPipeline(components, updater);
+    }
+
+    public static BuildPipeline constructPipelineWithDefaultUpdater(BuildComponentCollection components){
+        Consumer<String> updater = componentName -> {
+            System.out.println("Component " + componentName + " has been built!");
+        };
+        return new BuildPipeline(components, updater);
     }
 
 
     public void build(){
+        components.ensureSorted();
         for(BuildComponent component : components){
-            feedPreBuildResources(component);
-            component.build();
-            registerResources(component);
+            ensurePrerequisitesBuilt(component);
+            component.ensureBuilt();
+            updater.accept(component.toString());
         }
         for(BuildComponent component : components){
-            feedPostBuildResources(component);
+            component.postBuild();
         }
     }
 
-    private void feedPreBuildResources(BuildComponent component){
-        for(String resourceName : component.requiredPreBuildResourceNames()){
-            BuildResource resource = extantResources.get(resourceName);
-            component.acceptPreBuildResource(resource);
-        }
-    }
-
-    private void registerResources(BuildComponent component){
-        for(BuildResource resource : component.supplyResources()){
-            extantResources.put(resource.name(), resource);
-        }
-    }
-
-    private void feedPostBuildResources(BuildComponent component){
-        for(String resourceName : component.requiredPostBuildResourceNames()){
-            BuildResource resource = extantResources.get(resourceName);
-            component.acceptPostBuildResource(resource);
-        }
-    }
-
-
-    public void layout(PaneLayout layout){
-        for(BuildComponent component : components){
-            component.layout(layout);
-        }
-    }
-
-    public void addToContainer(UIComponentContainer container){
-        for(BuildComponent component : components){
-            component.addToContainer(container);
+    private void ensurePrerequisitesBuilt(BuildComponent component){
+        for(BuildResource<?> resource : component.requiredPreBuildResources()){
+            if(!resource.isBuilt()){
+                throw new IllegalStateException("Resource unbuilt: " + resource);
+            }
         }
     }
 

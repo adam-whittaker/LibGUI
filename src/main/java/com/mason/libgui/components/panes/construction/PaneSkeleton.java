@@ -30,14 +30,14 @@ public class PaneSkeleton implements InteractiveContainer{
 
     public HitboxRect getBoundary(){
         if(boundary == null){
-            throw new IllegalStateException("Argument unset!");
+            throw new IllegalStateException("Boundary unset!");
         }
         return boundary;
     }
 
     public void setBoundary(HitboxRect boundary){
         if(this.boundary != null){
-            throw new IllegalStateException("boundary is already set");
+            throw new IllegalStateException("Boundary is already set");
         }
         this.boundary = boundary;
     }

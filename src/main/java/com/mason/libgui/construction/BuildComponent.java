@@ -1,29 +1,47 @@
 package com.mason.libgui.construction;
 
-import com.mason.libgui.components.panes.layout.PaneLayout;
-import com.mason.libgui.core.componentManagement.UIComponentContainer;
-
-import java.util.Collection;
 import java.util.Set;
 
 public interface BuildComponent{
 
 
-    void registerPreBuildResource(String resourceName);
-    void registerPostBuildResource(String resourceName);
+    default Set<BuildResource<?>> requiredPreBuildResources(){
+        return Set.of();
+    }
 
-    Set<String> requiredPreBuildResourceNames();
-    Set<String> requiredPostBuildResourceNames();
-    Set<String> suppliedBuildResourceNames();
+    Set<BuildResource<?>> suppliedBuildResources();
 
-    void acceptPreBuildResource(BuildResource resource);
-    void acceptPostBuildResource(BuildResource resource);
+    void ensureBuilt();
 
-    void build();
-    Collection<BuildResource> supplyResources();
+    default void postBuild(){}
 
-    void layout(PaneLayout layout);
 
-    void addToContainer(UIComponentContainer container);
+    static <T> BuildComponent getBasicResourceComponent(BuildResource<T> resource){
+        return new BuildComponent(){
+
+            @Override
+            public Set<BuildResource<?>> requiredPreBuildResources(){
+                return Set.of();
+            }
+
+            @Override
+            public Set<BuildResource<?>> suppliedBuildResources(){
+                return Set.of(resource);
+            }
+
+            @Override
+            public void ensureBuilt(){
+                resource.ensureBuilt();
+            }
+
+            @Override
+            public void postBuild(){}
+
+            @Override
+            public String toString(){
+                return resource.toString();
+            }
+        };
+    }
 
 }

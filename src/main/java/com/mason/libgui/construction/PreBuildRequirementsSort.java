@@ -16,7 +16,7 @@ public class PreBuildRequirementsSort{
         }
 
         if(sorted.size() != components.size()){
-            throw new IllegalArgumentException("Cycle in dependency graph!");
+            throw new IllegalArgumentException("Dependencies unresolvable! Either there is a cycle in the dependency graph, or required resources are unprovided altogether.");
         }
 
         return sorted;
@@ -26,7 +26,7 @@ public class PreBuildRequirementsSort{
     private static class DependencyMap<T extends BuildComponent>{
 
 
-        private final Map<T, Set<String>> dependencies;
+        private final Map<T, Set<BuildResource<?>>> dependencies;
         private final Queue<T> ready;
 
 
@@ -35,15 +35,15 @@ public class PreBuildRequirementsSort{
             ready = initializeReadyQueue(dependencies);
         }
 
-        private static <T extends BuildComponent> Map<T, Set<String>> createDependencyMap(Collection<T> components){
-            Map<T, Set<String>> dependencies = new HashMap<>();
+        private static <T extends BuildComponent> Map<T, Set<BuildResource<?>>> createDependencyMap(Collection<T> components){
+            Map<T, Set<BuildResource<?>>> dependencies = new HashMap<>();
             for(T component : components){
-                dependencies.put(component, new HashSet<>(component.requiredPreBuildResourceNames()));
+                dependencies.put(component, new HashSet<>(component.requiredPreBuildResources()));
             }
             return dependencies;
         }
 
-        private static <T extends BuildComponent> Queue<T> initializeReadyQueue(Map<T, Set<String>> dependencies){
+        private static <T extends BuildComponent> Queue<T> initializeReadyQueue(Map<T, Set<BuildResource<?>>> dependencies){
             Queue<T> ready = new ArrayDeque<>();
             dependencies.forEach((comp, deps) -> {
                 if(deps.isEmpty()){
@@ -63,7 +63,7 @@ public class PreBuildRequirementsSort{
         }
 
         private void removeDependencies(BuildComponent currentComponent){
-            Set<String> resourceNames = currentComponent.suppliedBuildResourceNames();
+            Set<BuildResource<?>> resourceNames = currentComponent.suppliedBuildResources();
             dependencies.forEach((comp, deps) -> {
                 boolean changed = deps.removeAll(resourceNames);
                 if(changed && deps.isEmpty()){
