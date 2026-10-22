@@ -35,10 +35,6 @@ public class SliderEvent{
         return timeStampMillis;
     }
 
-    public int getSliderID(){
-        return slider.getID();
-    }
-
 
     public static SliderEventConstructor sliderEventConstructor(Slider slider){
         return (type) -> new SliderEvent(slider, type);

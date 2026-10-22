@@ -8,7 +8,6 @@ import com.mason.libstruct.geo.Size;
 public class SliderSkeleton{
 
 
-    private String name;
     private HitboxRect railHitbox;
     private HitboxRect boundary;
     private SliderDeco sliderDeco;
@@ -18,20 +17,6 @@ public class SliderSkeleton{
 
     public SliderSkeleton(){}
 
-
-    public String getName(){
-        if(name == null){
-            throw new IllegalStateException("name is not set");
-        }
-        return name;
-    }
-
-    public void setName(String name){
-        if(this.name != null){
-            throw new IllegalStateException("name is already set");
-        }
-        this.name = name;
-    }
 
     public SliderDeco getSliderDeco(){
         if(sliderDeco == null){

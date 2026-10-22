@@ -23,11 +23,13 @@ public class PanZoomPaneBuilder{
 
     private static BehaviourFactory buildBehaviourFactory(RectQuery initialView, RectQuery clampingRect, Zoom zoom){
         return (skeleton) -> {
-            return PanZoomBehaviour.buildBehaviour(skeleton.getRenderable(),
+            return PanZoomBehaviour.buildBehaviour(
+                    skeleton.getRenderable(),
                     clampingRect,
                     initialView,
                     zoom,
-                    skeleton.getViewportMouseInputCapturer());
+                    skeleton.getViewportMouseInputCapturer()
+            );
         };
     }
 
@@ -55,9 +57,28 @@ public class PanZoomPaneBuilder{
 
     private static BehaviourFactory buildFullyZoomedOutBehaviourFactory(RectQuery clampingRect){
         return (skeleton) -> {
-            return PanZoomBehaviour.buildFullyZoomedOutBehaviour(skeleton.getRenderable(),
+            return PanZoomBehaviour.buildFullyZoomedOutBehaviour(
+                    skeleton.getRenderable(),
                     clampingRect,
-                    skeleton.getViewportMouseInputCapturer());
+                    skeleton.getViewportMouseInputCapturer()
+            );
+        };
+    }
+
+    public static PanZoomPaneSkeleton buildSkeletonWithUnclampedBehaviour(HitboxRect boundary, RectQuery initialView, RectQuery clampRect, Zoom zoom){
+        BehaviourFactory behaviourFactory = buildUnclampedBehaviourFactory(initialView, clampRect, zoom);
+        return buildSkeletonUsingBehaviourFactory(boundary, behaviourFactory);
+    }
+
+    private static BehaviourFactory buildUnclampedBehaviourFactory(RectQuery initialView, RectQuery clampRect, Zoom zoom){
+        return (skeleton) -> {
+            return PanZoomBehaviour.buildUnclampedBehaviour(
+                    skeleton.getRenderable(),
+                    initialView,
+                    clampRect,
+                    zoom,
+                    skeleton.getViewportMouseInputCapturer()
+            );
         };
     }
 

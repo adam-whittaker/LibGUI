@@ -16,7 +16,9 @@ public class PreBuildRequirementsSort{
         }
 
         if(sorted.size() != components.size()){
-            throw new IllegalArgumentException("Dependencies unresolvable! Either there is a cycle in the dependency graph, or required resources are unprovided altogether.");
+            BuildComponent unready = dependencyMap.findUnreadyComponent();
+            throw new IllegalArgumentException("Dependencies unresolvable! Either there is a cycle in the dependency " +
+                    "graph, or required resources are unprovided altogether: " + unready);
         }
 
         return sorted;
@@ -70,6 +72,16 @@ public class PreBuildRequirementsSort{
                     ready.add(comp);
                 }
             });
+        }
+
+        private BuildComponent findUnreadyComponent(){
+            return dependencies
+                    .entrySet()
+                    .stream()
+                    .filter(entry -> !entry.getValue().isEmpty())
+                    .findAny()
+                    .orElseThrow()
+                    .getKey();
         }
 
     }

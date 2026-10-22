@@ -24,9 +24,9 @@ public class IntegerToggleGroup{
     }
 
 
-    public Toggle createToggle(String name, HitboxRect rect, ButtonDeco deco, int value){
+    public Toggle createToggle(HitboxRect rect, ButtonDeco deco, int value){
         OnOffState source = createSource(value);
-        return new SourcedToggle(name, rect, deco, source);
+        return new SourcedToggle(rect, deco, source);
     }
 
     private OnOffState createSource(int value){

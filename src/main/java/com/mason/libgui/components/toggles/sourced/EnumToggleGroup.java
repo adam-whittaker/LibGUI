@@ -19,7 +19,7 @@ public class EnumToggleGroup<T extends Enum<T>>{
 
     public Toggle createToggle(HitboxRect rect, ButtonDeco deco, T value){
         OnOffState source = createSource(value);
-        return new SourcedToggle(value.name(), rect, deco, source);
+        return new SourcedToggle(rect, deco, source);
     }
 
     private OnOffState createSource(T value){

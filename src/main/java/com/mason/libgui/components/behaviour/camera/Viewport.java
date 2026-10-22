@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.function.Consumer;
 
+import static java.lang.Math.abs;
+
 public class Viewport{
 
 
@@ -42,6 +44,12 @@ public class Viewport{
         return new Viewport(renderable, boundingRect, initialView, Zoom.buildDefaultFullyZoomedOutZoom());
     }
 
+    static Viewport buildUnclampedViewport(Consumer<Graphics2D> renderable, RectQuery initialView, RectQuery clampRect, Zoom zoom){
+        return new Viewport(renderable, clampRect, initialView, zoom){
+            void clampWithinBoundary(){}
+        };
+    }
+
 
     Coord apparentToScreen(ApparentCoord apparent){
         double zoom = getZoom();
@@ -61,6 +69,13 @@ public class Viewport{
 
     double getZoom(){
         return zoom.getZoom();
+    }
+
+    void recentreView(){
+        view.setPreciseCoord(new ApparentCoord(
+                abs(clampingRect.width() - view.width())/2,
+                abs(clampingRect.height() - view.height())/2
+        ));
     }
 
 

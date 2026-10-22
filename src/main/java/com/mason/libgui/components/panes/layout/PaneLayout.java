@@ -87,7 +87,7 @@ public class PaneLayout{
     }
 
 
-    public void verticalDissect(String address, double[] dissectionRatios){
+    public void verticalDissect(String address, double... dissectionRatios){
         Box box = findBox(address);
         box.verifyEmpty();
         int x = box.x();
@@ -105,7 +105,7 @@ public class PaneLayout{
         box.putSubBox(coordToSubAddress(dissectionRatios.length, 0), new Rect(x, currentY, totalWidth, currentHeight));
     }
 
-    public void horizontalDissect(String address, double[] dissectionRatios){
+    public void horizontalDissect(String address, double... dissectionRatios){
         Box box = findBox(address);
         box.verifyEmpty();
         int currentX = box.x();

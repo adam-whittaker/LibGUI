@@ -1,6 +1,5 @@
 package com.mason.libgui.components.buttons;
 
-import com.mason.libgui.components.ComponentIDRegister;
 import com.mason.libgui.components.behaviour.MouseInputListenerWithCapture;
 import com.mason.libgui.components.deco.ButtonDeco;
 import com.mason.libgui.components.toggles.ToggleRenderState;
@@ -13,17 +12,13 @@ import java.awt.*;
 public abstract class AbstractButton extends MouseInputListenerWithCapture implements Button{
 
 
-    private final String name;
-    private final int id;
     private final HitboxRect hitbox;
     private final ButtonDeco buttonDeco;
     private final ToggleRenderState renderState;
 
 
-    protected AbstractButton(String name, HitboxRect hitbox, ButtonDeco buttonDeco){
+    protected AbstractButton(HitboxRect hitbox, ButtonDeco buttonDeco){
         super();
-        this.name = name.toUpperCase();
-        id = ComponentIDRegister.registerComponent(this);
         this.hitbox = hitbox;
         this.buttonDeco = buttonDeco;
         renderState = new ButtonRenderState();
@@ -48,16 +43,6 @@ public abstract class AbstractButton extends MouseInputListenerWithCapture imple
     @Override
     public Coord getCoord(){
         return hitbox.getCoord();
-    }
-
-    @Override
-    public int getID(){
-        return id;
-    }
-
-    @Override
-    public String getName(){
-        return name;
     }
 
     @Override

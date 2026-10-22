@@ -6,6 +6,7 @@ import com.mason.libgui.core.input.componentLayer.GUIInputDistributor;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.componentLayer.UIComponentManagerInputDistributor;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
+import com.mason.libgui.core.input.mouse.InputDelegator;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -41,7 +42,7 @@ public class UIComponentManager implements GUIInputRegister<BoundedMouseInputLis
     @Override
     public void addComponent(UIComponent comp){
         components.addComponent(comp);
-        if(comp instanceof BoundedMouseInputListener mouseInputListener){
+        if(comp instanceof InputDelegator mouseInputListener){
             mouseInputListener.setInputSource(this);
         }
         if(comp instanceof KeyListener keyListener){

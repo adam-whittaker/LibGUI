@@ -29,8 +29,4 @@ public class ToggleEvent{
         return timeStampMillis;
     }
 
-    public int getToggleID(){
-        return toggle.getID();
-    }
-
 }

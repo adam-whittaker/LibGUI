@@ -77,8 +77,8 @@ public class MouseInputEvent{
         return (event.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0;
     }
 
-    public boolean isMouseButtonTwoDown(){
-        return (event.getModifiersEx() & MouseEvent.BUTTON3_DOWN_MASK) != 0;
+    public boolean isRightMouseButton(){
+        return event.getButton() == MouseEvent.BUTTON3;
     }
 
 

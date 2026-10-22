@@ -42,4 +42,8 @@ public class PanZoomPane extends Pane{
         drawForeground(g);
     }
 
+    public void recentreView(){
+        panZoomBehaviour.recentreView();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.mason.libgui.core.component;
 
-import com.mason.libgui.core.component.hitbox.BasicHitboxRect;
 import com.mason.libgui.core.component.hitbox.HitboxRect;
 import com.mason.libstruct.geo.Coord;
 import com.mason.libstruct.interfaces.RectQuery;
@@ -14,10 +13,6 @@ public abstract class AbstractUIComponent implements UIComponent, RectQuery{
 
     public AbstractUIComponent(HitboxRect hitbox){
         this.hitbox = hitbox;
-    }
-
-    public AbstractUIComponent(RectQuery hitbox){
-        this(new BasicHitboxRect(hitbox.getCoord(), hitbox.getSize()));
     }
 
 

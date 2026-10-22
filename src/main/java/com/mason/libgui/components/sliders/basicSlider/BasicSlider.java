@@ -1,6 +1,5 @@
 package com.mason.libgui.components.sliders.basicSlider;
 
-import com.mason.libgui.components.ComponentIDRegister;
 import com.mason.libgui.components.deco.SliderDeco;
 import com.mason.libgui.components.sliders.Slider;
 import com.mason.libgui.core.component.AbstractUIComponent;
@@ -15,8 +14,6 @@ import java.awt.*;
 public class BasicSlider extends AbstractUIComponent implements Slider, BoundedMouseInputListener{
 
 
-    private final String name;
-    private final int id;
     private final SliderDeco sliderDeco;
     private final RectQuery railBox;
 
@@ -25,23 +22,11 @@ public class BasicSlider extends AbstractUIComponent implements Slider, BoundedM
 
     public BasicSlider(SliderSkeleton skeleton){
         super(skeleton.getBoundary());
-        this.name = skeleton.getName();
-        this.id = ComponentIDRegister.registerComponent(this);
         this.sliderDeco = skeleton.getSliderDeco();
         this.railBox = skeleton.getRailHitbox();
         this.handle = new SliderHandle(skeleton);
     }
 
-
-    @Override
-    public int getID(){
-        return id;
-    }
-
-    @Override
-    public String getName(){
-        return name;
-    }
 
     @Override
     public double getPosition(){

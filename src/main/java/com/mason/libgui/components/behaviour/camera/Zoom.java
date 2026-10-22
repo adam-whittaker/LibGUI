@@ -43,12 +43,16 @@ public class Zoom{
     }
 
 
-    double getZoom(){
+    public double getZoom(){
         return zoom;
     }
 
+    public void setZoom(double zoom){
+        this.zoom = zoom;
+    }
 
-    void mouseWheel(MouseInputEvent event){
+
+    public void mouseWheel(MouseInputEvent event){
         int wheelTicks = event.getWheelMotion();
         double totalZoomFactor = Math.pow(zoomFactor, -wheelTicks);
         zoom *= totalZoomFactor;

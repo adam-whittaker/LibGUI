@@ -14,17 +14,17 @@ public class BasicDispatchToggle extends AbstractToggle implements DispatchToggl
     private boolean on;
 
 
-    protected BasicDispatchToggle(String name, HitboxRect hitbox, ButtonDeco buttonDeco){
-        super(name, hitbox, buttonDeco);
+    protected BasicDispatchToggle(HitboxRect hitbox, ButtonDeco buttonDeco){
+        super(hitbox, buttonDeco);
         listeners = new HashSet<>();
     }
 
-    public static BasicDispatchToggle buildWithBasicDeco(String name, HitboxRect boundary, String iconFilepath){
-        return build(name, boundary, BasicButtonDeco.build(iconFilepath));
+    public static BasicDispatchToggle buildWithBasicDeco(HitboxRect boundary, String iconFilepath){
+        return build(boundary, BasicButtonDeco.build(iconFilepath));
     }
 
-    public static BasicDispatchToggle build(String name, HitboxRect boundary, ButtonDeco buttonDeco){
-        return new BasicDispatchToggle(name, boundary, buttonDeco);
+    public static BasicDispatchToggle build(HitboxRect boundary, ButtonDeco buttonDeco){
+        return new BasicDispatchToggle(boundary, buttonDeco);
     }
 
 

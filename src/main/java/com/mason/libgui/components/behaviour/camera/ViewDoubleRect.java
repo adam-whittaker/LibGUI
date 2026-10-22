@@ -9,10 +9,10 @@ public class ViewDoubleRect{
 
 
     ViewDoubleRect(RectQuery rect){
-        x = rect.getCoord().x();
-        y = rect.getCoord().y();
-        width = rect.getSize().width();
-        height = rect.getSize().height();
+        x = rect.x();
+        y = rect.y();
+        width = rect.width();
+        height = rect.height();
     }
 
 
@@ -22,6 +22,14 @@ public class ViewDoubleRect{
 
     int yInt(){
         return (int) y;
+    }
+
+    double width(){
+        return width;
+    }
+
+    double height(){
+        return height;
     }
 
     void resizeAfterZoom(double zoomFactorChange){

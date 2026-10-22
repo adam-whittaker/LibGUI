@@ -18,7 +18,7 @@ public class SliderWithIconsBuilder{
 
     private final int padding;
     private final SliderDeco deco;
-    protected final Size sliderHandleSize;
+    private final Size sliderHandleSize;
 
 
     public SliderWithIconsBuilder(int padding, SliderDeco deco, Size sliderHandleSize){
@@ -28,13 +28,15 @@ public class SliderWithIconsBuilder{
     }
 
 
-    public SliderWithIconsSkeleton buildSkeleton(String name,
-                                                 RectQuery fullBoundary,
+    public Size getSliderHandleSize(){
+        return sliderHandleSize;
+    }
+
+    public SliderWithIconsSkeleton buildSkeleton(RectQuery fullBoundary,
                                                  String leftImageFilepath,
                                                  String rightImageFilepath,
                                                  SliderPositionStateFactory positionState){
         SliderWithIconsSkeleton skeleton = packInitialParametersIntoSkeleton(
-                name,
                 fullBoundary,
                 leftImageFilepath,
                 rightImageFilepath);
@@ -44,13 +46,11 @@ public class SliderWithIconsBuilder{
         return skeleton;
     }
 
-    private SliderWithIconsSkeleton packInitialParametersIntoSkeleton(String name,
-                                                                      RectQuery fullBoundary,
+    private SliderWithIconsSkeleton packInitialParametersIntoSkeleton(RectQuery fullBoundary,
                                                                       String leftImageFilepath,
                                                                       String rightImageFilepath){
         verifySliderHandleSizeWithinBounds(fullBoundary);
         SliderWithIconsSkeleton skeleton = new SliderWithIconsSkeleton();
-        skeleton.setName(name);
         skeleton.setBoundary(HitboxRect.fromRect(fullBoundary));
         skeleton.setLeftImage(ImageUtils.readImage(leftImageFilepath));
         skeleton.setRightImage(ImageUtils.readImage(rightImageFilepath));

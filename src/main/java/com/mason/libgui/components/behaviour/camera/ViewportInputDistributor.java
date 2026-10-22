@@ -3,7 +3,6 @@ package com.mason.libgui.components.behaviour.camera;
 import com.mason.libgui.core.input.componentLayer.UIComponentManagerInputDistributor;
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
 import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libstruct.geo.Coord;
 
 public class ViewportInputDistributor extends UIComponentManagerInputDistributor{
 

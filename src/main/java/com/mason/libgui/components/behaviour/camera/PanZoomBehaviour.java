@@ -33,6 +33,11 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
         return new PanZoomBehaviour(viewport, capturer);
     }
 
+    public static PanZoomBehaviour buildUnclampedBehaviour(Consumer<Graphics2D> renderable, RectQuery initialView, RectQuery clampRect, Zoom zoom, ViewportMouseInputCapturer capturer){
+        Viewport viewport = Viewport.buildUnclampedViewport(renderable, initialView, clampRect, zoom);
+        return new PanZoomBehaviour(viewport, capturer);
+    }
+
 
     @Override
     public boolean withinBounds(Coord c){
@@ -45,6 +50,10 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
 
     public void renderAfterTranslation(Graphics2D g){
         viewport.renderAfterTranslation(g);
+    }
+
+    public void recentreView(){
+        viewport.recentreView();
     }
 
 

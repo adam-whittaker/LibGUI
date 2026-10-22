@@ -8,8 +8,8 @@ import com.mason.libgui.core.component.hitbox.HitboxRect;
 public abstract class PresetToggle extends BasicDispatchToggle implements ToggleEventListener{
 
 
-    protected PresetToggle(String name, HitboxRect hitbox, ButtonDeco buttonDeco){
-        super(name, hitbox, buttonDeco);
+    protected PresetToggle(HitboxRect hitbox, ButtonDeco buttonDeco){
+        super(hitbox, buttonDeco);
         addToggleEventListener(this);
     }
 

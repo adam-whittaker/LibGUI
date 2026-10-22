@@ -11,8 +11,8 @@ public class SourcedToggle extends AbstractToggle{
     private final OnOffState source;
 
 
-    public SourcedToggle(String name, HitboxRect hitbox, ButtonDeco buttonDeco, OnOffState source){
-        super(name, hitbox, buttonDeco);
+    public SourcedToggle(HitboxRect hitbox, ButtonDeco buttonDeco, OnOffState source){
+        super(hitbox, buttonDeco);
         this.source = source;
     }
 
