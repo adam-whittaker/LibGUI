@@ -18,6 +18,10 @@ public class Zoom{
         this.zoom = initialZoom;
     }
 
+    public static Zoom buildFixedZoom(double initialZoom){
+        return buildZoom(initialZoom, initialZoom, 1, initialZoom);
+    }
+
     public static Zoom buildZoom(double minZoom, double maxZoom, int numZoomLevels, double initialZoom){
         if(numZoomLevels <= 1){
             throw new IllegalArgumentException("numZoomLevels must be >= 2");

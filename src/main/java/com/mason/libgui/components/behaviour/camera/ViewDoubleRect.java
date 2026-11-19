@@ -52,7 +52,7 @@ public class ViewDoubleRect{
     }
 
     private void clampX(RectQuery boundary){
-        int boundaryX = boundary.getCoord().x();
+        int boundaryX = boundary.x();
         int boundaryWidth = boundary.getSize().width();
         if(x < boundaryX){
             x = boundaryX;
@@ -62,7 +62,7 @@ public class ViewDoubleRect{
     }
 
     private void clampY(RectQuery boundary){
-        int boundaryY = boundary.getCoord().y();
+        int boundaryY = boundary.y();
         int boundaryHeight = boundary.getSize().height();
         if(y < boundaryY){
             y = boundaryY;

@@ -46,7 +46,7 @@ public class ViewportInputDistributor extends UIComponentManagerInputDistributor
 
     private void passApparentInputToMouseInputListeners(MouseInputEvent event){
         inputConsumed = false;
-        for(BoundedMouseInputListener listener : mouseListeners()){
+        for(BoundedMouseInputListener listener : getMouseRegister()){
             if(listener.withinBounds(event.getCoord())){
                 dispatchMouseInputEventToListener(event, listener);
                 if(!event.isRejected()){

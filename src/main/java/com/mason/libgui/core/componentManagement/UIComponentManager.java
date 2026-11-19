@@ -2,6 +2,8 @@
 package com.mason.libgui.core.componentManagement;
 
 import com.mason.libgui.core.component.UIComponent;
+import com.mason.libgui.core.componentManagement.sourced.SourcedGUIInputDistributor;
+import com.mason.libgui.core.componentManagement.sourced.SourcedInteractiveContainer;
 import com.mason.libgui.core.input.componentLayer.GUIInputDistributor;
 import com.mason.libgui.core.input.componentLayer.GUIInputRegister;
 import com.mason.libgui.core.input.componentLayer.UIComponentManagerInputDistributor;
@@ -29,7 +31,17 @@ public class UIComponentManager implements GUIInputRegister<BoundedMouseInputLis
     }
 
     public static UIComponentManager buildSimpleUIComponentManager(){
-        return new UIComponentManager(new SimpleUIComponentContainer(), new UIComponentManagerInputDistributor());
+        return new UIComponentManager(
+                new SimpleUIComponentContainer(),
+                new UIComponentManagerInputDistributor()
+        );
+    }
+
+    public static <T extends BoundedMouseInputListener & UIComponent> UIComponentManager buildSourcedUIComponentManager(Iterable<T> source){
+        return new UIComponentManager(
+                new SourcedInteractiveContainer(source),
+                new SourcedGUIInputDistributor(source)
+        );
     }
 
 
@@ -52,7 +64,7 @@ public class UIComponentManager implements GUIInputRegister<BoundedMouseInputLis
     
     public void removeComponent(UIComponent comp){
         components.removeComponent(comp);
-        if(comp instanceof BoundedMouseInputListener mouseInputListener){
+        if(comp instanceof InputDelegator mouseInputListener){
             mouseInputListener.unsetInputSource(this);
         }
         if(comp instanceof KeyListener keyListener){

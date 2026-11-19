@@ -1,12 +1,10 @@
 package com.mason.libgui.core.input.componentLayer;
 
 import com.mason.libgui.core.input.mouse.BoundedMouseInputListener;
-import com.mason.libgui.core.input.mouse.MouseInputEvent;
-import com.mason.libgui.core.input.mouse.MouseInputListener;
 
 import java.awt.event.*;
 
-public class UIComponentManagerInputDistributor implements GUIMouseInputCoagulator, GUIInputDistributor<BoundedMouseInputListener>{
+public class UIComponentManagerInputDistributor extends AbstractInputDistributor{
 
 
     private final ListenerRegister<KeyListener> keyRegister;
@@ -19,7 +17,8 @@ public class UIComponentManagerInputDistributor implements GUIMouseInputCoagulat
     }
 
 
-    protected Iterable<BoundedMouseInputListener> mouseListeners(){
+    @Override
+    protected Iterable<BoundedMouseInputListener> getMouseRegister(){
         return mouseRegister;
     }
 
@@ -44,40 +43,6 @@ public class UIComponentManagerInputDistributor implements GUIMouseInputCoagulat
         mouseRegister.removeListener(listener);
     }
 
-
-    @Override
-    public void onMouseInput(MouseInputEvent event){
-        for(BoundedMouseInputListener listener : mouseRegister){
-            if(listener.withinBounds(event.getCoord())){
-                if(tryDispatchMouseInputEventToListener(event, listener)){
-                    break;
-                }
-            }
-        }
-    }
-
-    protected final boolean tryDispatchMouseInputEventToListener(MouseInputEvent event, MouseInputListener listener){
-        dispatchMouseInputEventToListener(event, listener);
-        if(event.isRejected()){
-            event.unreject();
-            return false;
-        }
-        return true;
-    }
-
-    protected final void dispatchMouseInputEventToListener(MouseInputEvent event, MouseInputListener listener){
-        switch(event.getType()){
-
-            case MOVE -> listener.onMouseMoved(event);
-            case DRAG -> listener.onMouseDragged(event);
-
-            case PRESS -> listener.onMousePressed(event);
-            case RELEASE -> listener.onMouseReleased(event);
-
-            case CLICK -> listener.onMouseClicked(event);
-            case WHEEL -> listener.onMouseWheel(event);
-        }
-    }
 
     @Override
     public void keyTyped(KeyEvent e){

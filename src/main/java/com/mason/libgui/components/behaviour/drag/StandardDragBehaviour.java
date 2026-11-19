@@ -33,7 +33,7 @@ public class StandardDragBehaviour extends AbstractDragBehaviour{
     }
 
     private Coord calculateInitialOffset(Coord mouse){
-        return new Coord(mouse.x() - dragRegion.getCoord().x(), mouse.y() - dragRegion.getCoord().y());
+        return new Coord(mouse.x() - dragRegion.x(), mouse.y() - dragRegion.y());
     }
 
 

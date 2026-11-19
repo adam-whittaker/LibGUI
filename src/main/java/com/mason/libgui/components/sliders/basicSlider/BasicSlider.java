@@ -48,9 +48,6 @@ public class BasicSlider extends AbstractUIComponent implements Slider, BoundedM
         sliderDeco.drawSliderHandle(g, handle.getBounds(), handle.isCurrentlyDragging());
     }
 
-    @Override
-    public void tick(){}
-
 
     @Override
     public void onMouseDragged(MouseInputEvent e){

@@ -28,7 +28,7 @@ public interface HitboxRect extends Hitbox, RectQuery{
 
     private int getClampedY(RectQuery boundary){
         int y = y();
-        int boundaryY = boundary.getCoord().y();
+        int boundaryY = boundary.y();
         int boundaryHeight = boundary.getSize().height();
         if(y < boundaryY){
             y = boundaryY;

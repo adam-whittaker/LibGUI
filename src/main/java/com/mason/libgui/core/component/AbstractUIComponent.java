@@ -36,4 +36,8 @@ public abstract class AbstractUIComponent implements UIComponent, RectQuery{
         return hitbox.getSize();
     }
 
+
+    @Override
+    public void tick(){}
+
 }

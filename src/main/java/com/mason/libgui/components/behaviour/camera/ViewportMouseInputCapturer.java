@@ -10,9 +10,7 @@ public class ViewportMouseInputCapturer extends MouseInputCapturer{
     private boolean active = false;
 
 
-    public ViewportMouseInputCapturer(){
-
-    }
+    public ViewportMouseInputCapturer(){}
 
 
     boolean isActive(){
