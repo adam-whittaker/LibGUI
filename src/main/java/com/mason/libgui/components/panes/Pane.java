@@ -60,6 +60,11 @@ public class Pane extends AbstractUIComponent implements InteractiveContainer, I
     }
 
 
+    protected BoundedMouseInputListener getInputTranslator(){
+        return inputTranslator;
+    }
+
+
     //Rendering relativisation
     @Override
     public void render(Graphics2D g){

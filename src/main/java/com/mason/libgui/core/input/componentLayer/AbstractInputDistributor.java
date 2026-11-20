@@ -17,10 +17,11 @@ public abstract class AbstractInputDistributor implements GUIMouseInputCoagulato
         for(BoundedMouseInputListener listener : getMouseRegister()){
             if(listener.withinBounds(event.getCoord())){
                 if(tryDispatchMouseInputEventToListener(event, listener)){
-                    break;
+                    return;
                 }
             }
         }
+        event.reject();
     }
 
     protected final boolean tryDispatchMouseInputEventToListener(MouseInputEvent event, MouseInputListener listener){

@@ -32,7 +32,7 @@ public class PanZoomPaneFactory<T extends PanZoomPane>{
     }
 
     private static UIComponentManager buildViewportComponentManager(ViewportMouseInputCapturer viewportCapturer, PanZoomBehaviour behaviour){
-        ViewportInputDistributor inputDistributor = new ViewportInputDistributor(behaviour, viewportCapturer);
+        ViewportInputDistributorWithMouseCapture inputDistributor = new ViewportInputDistributorWithMouseCapture(behaviour, viewportCapturer);
         return UIComponentManager.buildUIComponentManager(new SimpleUIComponentContainer(), inputDistributor);
     }
 

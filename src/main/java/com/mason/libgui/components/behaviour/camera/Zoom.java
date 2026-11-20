@@ -23,8 +23,8 @@ public class Zoom{
     }
 
     public static Zoom buildZoom(double minZoom, double maxZoom, int numZoomLevels, double initialZoom){
-        if(numZoomLevels <= 1){
-            throw new IllegalArgumentException("numZoomLevels must be >= 2");
+        if(numZoomLevels <= 0){
+            throw new IllegalArgumentException("numZoomLevels must be >= 1");
         }
         double zoomFactor = calculateZoomFactor(maxZoom/minZoom, numZoomLevels);
         return new Zoom(minZoom, maxZoom, zoomFactor, initialZoom);

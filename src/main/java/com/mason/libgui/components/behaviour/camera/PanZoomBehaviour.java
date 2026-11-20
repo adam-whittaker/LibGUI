@@ -10,7 +10,7 @@ import com.mason.libstruct.interfaces.RectQuery;
 import java.awt.*;
 import java.util.function.Consumer;
 
-public class PanZoomBehaviour extends AbstractDragBehaviour{
+public class PanZoomBehaviour extends AbstractDragBehaviour implements ViewportBehaviour{
 
 
     private final Viewport viewport;
@@ -44,7 +44,8 @@ public class PanZoomBehaviour extends AbstractDragBehaviour{
         return true;
     }
 
-    protected ApparentCoord screenToApparent(Coord screen){
+    @Override
+    public ApparentCoord screenToApparent(Coord screen){
         return viewport.screenToApparent(screen);
     }
 

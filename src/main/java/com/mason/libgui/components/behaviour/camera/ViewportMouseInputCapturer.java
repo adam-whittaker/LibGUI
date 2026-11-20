@@ -31,7 +31,7 @@ public class ViewportMouseInputCapturer extends MouseInputCapturer{
     }
 
     private void validateInputSourceType(GUIInputRegister<BoundedMouseInputListener> inputSource){
-        if(!(inputSource instanceof ViewportInputDistributor)){
+        if(!(inputSource instanceof ViewportInputDistributorWithMouseCapture)){
             throw new IllegalArgumentException("Using invalid register type with ViewportMouseInputCapturer");
         }
     }

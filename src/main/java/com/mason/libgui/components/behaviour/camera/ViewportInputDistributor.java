@@ -7,27 +7,17 @@ import com.mason.libgui.core.input.mouse.MouseInputEvent;
 public class ViewportInputDistributor extends UIComponentManagerInputDistributor{
 
 
-    private final PanZoomBehaviour behaviour;
-    private final ViewportMouseInputCapturer viewportCapturer;
+    private final ViewportBehaviour behaviour;
     private boolean inputConsumed = false;
 
 
-    public ViewportInputDistributor(PanZoomBehaviour behaviour, ViewportMouseInputCapturer viewportCapturer){
+    public ViewportInputDistributor(ViewportBehaviour behaviour){
         this.behaviour = behaviour;
-        this.viewportCapturer = viewportCapturer;
     }
 
 
     @Override
     public void onMouseInput(MouseInputEvent event){
-        if(viewportCapturer.isActive()){
-            dispatchMouseInputEventToListener(event, behaviour);
-        }else{
-            onMouseInputWithoutCapture(event);
-        }
-    }
-
-    private void onMouseInputWithoutCapture(MouseInputEvent event){
         passScreenInputToMouseInputListeners(event);
         if(!inputConsumed){
             dispatchMouseInputEventToListener(event, behaviour);
@@ -56,6 +46,11 @@ public class ViewportInputDistributor extends UIComponentManagerInputDistributor
                 event.unreject();
             }
         }
+    }
+
+
+    protected void dispatchMouseInputEventToBehaviour(MouseInputEvent event){
+        dispatchMouseInputEventToListener(event, behaviour);
     }
 
 }

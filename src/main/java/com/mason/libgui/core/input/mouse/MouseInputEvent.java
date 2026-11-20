@@ -57,8 +57,8 @@ public class MouseInputEvent{
         return type;
     }
 
-    public void setCoordRelativeTo(Coord topLeft){
-        coord = new Coord(coord.x() - topLeft.x(), coord.y() - topLeft.y());
+    public MouseInputEvent maskCoordRelativeTo(Coord topLeft){
+        return changedCoordMask(new Coord(coord.x() - topLeft.x(), coord.y() - topLeft.y()));
     }
 
 

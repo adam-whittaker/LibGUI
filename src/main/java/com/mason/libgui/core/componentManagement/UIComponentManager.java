@@ -21,7 +21,7 @@ public class UIComponentManager implements GUIInputRegister<BoundedMouseInputLis
     private final GUIInputDistributor<BoundedMouseInputListener> inputDistributor;
 
 
-    private UIComponentManager(IterableUIComponentContainer components, GUIInputDistributor<BoundedMouseInputListener> inputDistributor){
+    protected UIComponentManager(IterableUIComponentContainer components, GUIInputDistributor<BoundedMouseInputListener> inputDistributor){
         this.components = components;
         this.inputDistributor = inputDistributor;
     }
